@@ -1,0 +1,16 @@
+<resources>
+
+    <string name="app_name">project</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="login">Login</string>
+    <string name="register">register</string>
+     <string name="conform">conform</string>
+
+  
+    <color name="white">#ffffff</color><!--white -->
+    <color name="black">#000000</color><!--black -->
+    <color name="Clighton">#8B5A2B</color><!--light -->
+</resources>

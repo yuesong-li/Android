@@ -1,0 +1,46 @@
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/white" >
+
+        <Button
+            android:id="@+id/Heatingbackbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/back"
+            android:onClick="HeatingbuttonBackClicked" />
+
+        <ImageView
+            android:id="@+id/Heating"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/Heatingbackbutton"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/Heatingyesbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="32dp"
+            android:layout_marginLeft="27dp"
+            android:background="@drawable/fanok"
+            android:onClick="HeatingbuttonOnClicked" />
+
+        <Button
+            android:id="@+id/Heatingnobutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/Heatingyesbutton"
+            android:layout_alignBottom="@+id/Heatingyesbutton"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/fanno"
+            android:onClick="HeatingbuttonOffClicked" />
+
+    </RelativeLayout>
+       

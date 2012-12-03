@@ -1,0 +1,44 @@
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/white" >
+
+        <Button
+            android:id="@+id/lightOutbackbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/back"
+            android:onClick="lightOutbuttonBackClicked" />
+
+        <ImageView
+            android:id="@+id/lightOut"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/lightOutbackbutton"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/lightOutnobutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/fanno"
+            android:onClick="lightOutbuttonOffClicked" />
+
+        <Button
+            android:id="@+id/lightOutyesbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="21dp"
+            android:background="@drawable/fanok"
+            android:onClick="lightOutbuttonOnClicked" />
+
+    </RelativeLayout>
+       

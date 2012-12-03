@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/loginmenu"
+    android:orientation="vertical"
+    android:weightSum="1.0" >
+
+    <EditText
+        android:id="@+id/Login_UserNameet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/loginimg"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="57dp"
+        android:ems="10"
+        android:textSize="30px" 
+        android:textAppearance="?android:attr/textAppearanceLargeInverse"
+        >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/Login_PassWordet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/Login_UserNameet"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/Login_UserNameet"
+        android:layout_marginTop="21dp"
+        android:ems="10"
+        android:textSize="30px" 
+        android:password="true"
+     
+        />
+
+    <ImageView
+        android:id="@+id/loginimg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="81dp" />
+
+    <Button
+        android:id="@+id/Login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Login_PassWordet"
+        android:layout_marginTop="77dp"
+        android:layout_toLeftOf="@+id/Login_PassWordet"
+        android:background="@drawable/login"
+        android:text="login"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/Login_Backbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Login_button"
+        android:layout_alignBottom="@+id/Login_button"
+        android:layout_marginLeft="14dp"
+        android:layout_toRightOf="@+id/loginimg"
+        android:layout_weight="0.01"
+        android:background="@drawable/login"
+        android:text="back"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Login_UserNameet"
+        android:layout_alignBottom="@+id/Login_UserNameet"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="24dp"
+        android:text="UserName"
+        android:textColor="#8A8A8A"
+        android:textSize="30px" />
+
+    <TextView
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Login_PassWordet"
+        android:layout_alignBottom="@+id/Login_PassWordet"
+        android:layout_alignLeft="@+id/username"
+        android:text="PassWord"
+        android:textColor="#8A8A8A"
+        android:textSize="30px" 
+         />
+
+</RelativeLayout>

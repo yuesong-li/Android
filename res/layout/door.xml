@@ -1,0 +1,46 @@
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/white" >
+
+        <Button
+            android:id="@+id/Doorbackbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/back"
+            android:onClick="DoorbuttonBackClicked" />
+
+        <ImageView
+            android:id="@+id/Door"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/Doorbackbutton"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/Dooryesbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="24dp"
+            android:layout_marginLeft="32dp"
+            android:background="@drawable/fanok"
+            android:onClick="DoorbuttonOnClicked" />
+
+        <Button
+            android:id="@+id/Doornobutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/Dooryesbutton"
+            android:layout_alignBottom="@+id/Dooryesbutton"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/fanno"
+            android:onClick="DoorbuttonOffClicked" />
+
+    </RelativeLayout>
+       

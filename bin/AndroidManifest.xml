@@ -1,0 +1,41 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.project"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="8" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".splash"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+       <activity android:name="MainActivity"/>
+        <activity android:name="CoffeeInterface"/>
+        <activity android:name="LightInterface"/>
+        <activity android:name="LightOutInterface"/>
+         <activity android:name="TemperatureInterface"/>
+         <activity android:name="LoginInterface"/>
+         <activity android:name="FanInterface"/>
+         <activity android:name="HeatingInterface"/>
+           <activity android:name="DoorInterface"/>
+             <activity android:name="StoveInterface"/>
+              <activity android:name="BathInterface"/>
+    </application>
+
+</manifest>

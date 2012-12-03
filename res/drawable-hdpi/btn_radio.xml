@@ -1,0 +1,32 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">     
+ 
+   <!-- 当一个Button没有焦点，并且是enable的时候，Button的图片为btn_default_normal -->
+﻿    <item android:state_window_focused="false" android:state_enabled="true"
+        android:drawable="@drawable/radio" />
+
+    <!-- 当一个Button没有焦点，并且是disable的时候，Button的图片为btn_default_normal_disable -->
+﻿    <item android:state_window_focused="false" android:state_enabled="false"
+        android:drawable="@drawable/radio" />
+
+     <!-- 当一个Button被按下的时候，Button的图片为btn_default_pressed -->
+    <item android:state_pressed="true" 
+        android:drawable="@drawable/radiopress" />
+
+     <!-- 当一个Button有焦点，并且是enable的时候，Button的图片为btn_default_selected -->
+    <item android:state_focused="true" android:state_enabled="true"
+        android:drawable="@drawable/radiopress" />
+
+    <!-- 当一个Button是enable的时候，Button的图片为btn_default_normal -->    
+    <item android:state_enabled="true"
+        android:drawable="@drawable/radio" />
+
+    <!-- 当一个Button有焦点的时候，Button的图片为btn_default_normal_disable_focused -->    
+    <item android:state_focused="true"
+        android:drawable="@drawable/radiopress" />
+
+     <!-- 以上都不匹配，Button的图片为btn_default_normal_disable --> 
+    <item
+         android:drawable="@drawable/radio" />
+    
+
+</selector>

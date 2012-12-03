@@ -1,0 +1,46 @@
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/white" >
+
+        <Button
+            android:id="@+id/Bathbackbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/back"
+            android:onClick="BathbuttonBackClicked" />
+
+        <ImageView
+            android:id="@+id/Bath"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/Bathbackbutton"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/Bathyesbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="18dp"
+            android:background="@drawable/fanok"
+            android:onClick="BathbuttonOnClicked" />
+
+        <Button
+            android:id="@+id/Bathnobutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/Bathyesbutton"
+            android:layout_alignBottom="@+id/Bathyesbutton"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="21dp"
+            android:background="@drawable/fanno"
+            android:onClick="BathbuttonOffClicked" />
+
+    </RelativeLayout>
+       
