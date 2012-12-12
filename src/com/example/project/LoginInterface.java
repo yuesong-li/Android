@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 public class LoginInterface extends Activity {
 
-	//public static String initStauts = null;
+	// public static String initStauts = null;
 	// public static String[] initsmarthouse = new String[8];
 	private Button LoginButton = null;
 	private Button BackButton = null;
@@ -42,7 +42,6 @@ public class LoginInterface extends Activity {
 		this.LoginButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Connection conn = Connection.getConnection();
-
 				if (!UserNameField.getText().toString().equals("")
 						&& !PassWordField.getText().toString().equals("")) {
 
@@ -68,9 +67,10 @@ public class LoginInterface extends Activity {
 						Intent intent = new Intent();
 						intent.setClass(LoginInterface.this, MainActivity.class);
 						LoginInterface.this.startActivity(intent);
-						
-						//start the service
-						startService(new Intent(getBaseContext(), MyService.class));
+
+						// start the service
+						startService(new Intent(getBaseContext(),
+								MyService.class));
 					}
 				} else {
 					// Toast toast = Toast.makeText(getApplicationContext(),

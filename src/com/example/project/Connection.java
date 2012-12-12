@@ -65,25 +65,19 @@ public class Connection {
 		return socket;
 	}
 
-	@SuppressWarnings("unused")
 	private void getInputContent() throws IOException {
 		if (socket == null) {
 			socket = getSocket();
 			BufferedReader in = new BufferedReader(new InputStreamReader(
 					socket.getInputStream()));
 			msg = in.readLine();
-			// LoginInterface.initsmarthouse = msg.split(",");
-
 		} else {
 			BufferedReader in = new BufferedReader(new InputStreamReader(
 					socket.getInputStream()));
 			msg = in.readLine();
-			// LoginInterface.initsmarthouse = msg.split(",");
 		}
-
 	}
 
-	@SuppressWarnings("unused")
 	private void getOutputContent(String str) throws IOException {
 		if (socket == null) {
 			Socket socket = getSocket();
@@ -133,12 +127,10 @@ public class Connection {
 			// return message;
 			// }
 		}
-
 		return message;
 	}
 
 	public void closeSocket() throws Exception {
-
 		socket.close();
 	}
 	// String msg0[]=new String[2];
