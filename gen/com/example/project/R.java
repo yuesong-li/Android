@@ -92,8 +92,8 @@ public final class R {
         public static final int Bath=0x7f09000c;
         public static final int Bathbackbutton=0x7f09000b;
         public static final int Bathmenu=0x7f090005;
-        public static final int Bathnobutton=0x7f09000d;
-        public static final int Bathyesbutton=0x7f09000e;
+        public static final int Bathnobutton=0x7f09000e;
+        public static final int Bathyesbutton=0x7f09000d;
         public static final int Coffee=0x7f090010;
         public static final int Coffeebackbutton=0x7f09000f;
         public static final int Coffeenobutton=0x7f090012;

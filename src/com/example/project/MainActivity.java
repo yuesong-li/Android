@@ -1,35 +1,18 @@
 package com.example.project;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import android.view.View.OnTouchListener;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Handler;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
-import android.view.Menu;
+import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewTreeObserver.OnPreDrawListener;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.SeekBar;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -37,46 +20,47 @@ public class MainActivity extends Activity {
 	private RadioButton lightButton = null;
 	private RadioButton coffeeButton = null;
 	private RadioButton temperatureButton = null;
-	private RadioButton lightOutButton=null;
-	private RadioButton HeatingButton=null;
-	private RadioButton StoveButton=null;
-	private RadioButton FanButton=null;
-	private RadioButton DoorButton=null;
-	private RadioButton BathButton=null;
-	public Button loginButton=null;
-	
-	public static String loginInfo="";	
-	public static boolean admission=false;
+	private RadioButton lightOutButton = null;
+	private RadioButton HeatingButton = null;
+	private RadioButton StoveButton = null;
+	private RadioButton FanButton = null;
+	private RadioButton DoorButton = null;
+	private RadioButton BathButton = null;
+	public Button loginButton = null;
+
+	public static String accessLevel = "";
+	public static boolean admission = false;
 	public static BufferedReader in = null;
 	private ImageView image;
 	AnimationDrawable animationDrawable;
-	
-	Socket socket = null;
+	Connection con = null;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		this.lightOutButton = (RadioButton) this.findViewById(R.id.lightOutmenu);
+		this.lightOutButton = (RadioButton) this
+				.findViewById(R.id.lightOutmenu);
 		this.lightButton = (RadioButton) this.findViewById(R.id.btn_0);
 		this.FanButton = (RadioButton) this.findViewById(R.id.Fanmenu);
 		this.HeatingButton = (RadioButton) this.findViewById(R.id.Heatingmenu);
 		this.coffeeButton = (RadioButton) this.findViewById(R.id.btn_1);
 		this.temperatureButton = (RadioButton) this.findViewById(R.id.btn_2);
-		this.loginButton=(Button)this.findViewById(R.id.Main_logInButton);
+		this.loginButton = (Button) this.findViewById(R.id.Main_logInButton);
 		this.DoorButton = (RadioButton) this.findViewById(R.id.Doormenu);
 		this.StoveButton = (RadioButton) this.findViewById(R.id.Stovemenu);
 		this.BathButton = (RadioButton) this.findViewById(R.id.Bathmenu);
-		
+
 		image = (ImageView) findViewById(R.id.menuview);
 		image.setBackgroundResource(R.drawable.animation);
-		animationDrawable = (AnimationDrawable)image.getBackground();
+		animationDrawable = (AnimationDrawable) image.getBackground();
 		image.post(new Runnable() {
-		    public void run()  {
-		            animationDrawable.start();
-		        }
+			public void run() {
+				animationDrawable.start();
+			}
 		});
 
-		if(admission==false){			
+		if (admission == false) {
 			lightButton.setEnabled(false);
 			coffeeButton.setEnabled(false);
 			temperatureButton.setEnabled(false);
@@ -87,58 +71,82 @@ public class MainActivity extends Activity {
 			StoveButton.setEnabled(false);
 			BathButton.setEnabled(false);
 			loginButton.setText("Log In");
-			
-		}else{		
-			lightButton.setEnabled(true);
-			coffeeButton.setEnabled(true);
-			temperatureButton.setEnabled(true);
-			lightOutButton.setEnabled(true);
-			FanButton.setEnabled(true);
-			HeatingButton.setEnabled(true);
-			DoorButton.setEnabled(true);
-			StoveButton.setEnabled(true);
-			BathButton.setEnabled(true);
-			loginButton.setText("Log Out");			
-			
+
+		} else {
+			if (accessLevel.equals("high")) {
+				lightButton.setEnabled(true);
+				coffeeButton.setEnabled(true);
+				temperatureButton.setEnabled(true);
+				lightOutButton.setEnabled(true);
+				FanButton.setEnabled(true);
+				HeatingButton.setEnabled(true);
+				DoorButton.setEnabled(true);
+				StoveButton.setEnabled(true);
+				BathButton.setEnabled(true);
+				loginButton.setText("Log Out");
+			} else if (accessLevel.equals("low")) {
+				lightButton.setEnabled(true);
+				temperatureButton.setEnabled(true);
+				lightOutButton.setEnabled(true);
+				FanButton.setEnabled(true);
+				BathButton.setEnabled(true);
+				DoorButton.setEnabled(true);
+				loginButton.setText("Log Out");
+
+				// disable these interfaces for low-level user
+				coffeeButton.setEnabled(false);
+				StoveButton.setEnabled(false);
+				HeatingButton.setEnabled(false);
+
+			} else {
+				admission = false;
+			}
+
 			image.setBackgroundResource(R.drawable.animation);
-			animationDrawable = (AnimationDrawable)image.getBackground();
+			animationDrawable = (AnimationDrawable) image.getBackground();
 			image.post(new Runnable() {
-			    public void run()  {
-			            animationDrawable.start();
-			        }
+				public void run() {
+					animationDrawable.start();
+				}
 			});
-			Toast toast=Toast.makeText(getApplicationContext(), "You can control the house!", Toast.LENGTH_SHORT);
-			ImageView img=new ImageView(getApplicationContext());
+			Toast toast = Toast.makeText(getApplicationContext(),
+					"You can control the house!", Toast.LENGTH_SHORT);
+			ImageView img = new ImageView(getApplicationContext());
 			img.setImageResource(R.drawable.userok);
-			View toastview=toast.getView();
-			LinearLayout linear=new LinearLayout(getApplicationContext());
+			View toastview = toast.getView();
+			LinearLayout linear = new LinearLayout(getApplicationContext());
 			linear.setOrientation(LinearLayout.HORIZONTAL);
 			linear.addView(img);
 			linear.addView(toastview);
-			toast.setView(linear); 
-            toast.show(); 
-			           
-		}		
-		this.loginButton.setOnClickListener(new OnClickListener(){
+			toast.setView(linear);
+			toast.show();
+
+		}
+		this.loginButton.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				
-				if(loginButton.getText().toString().equals("Log In"))
-				{
+
+				if (loginButton.getText().toString().equals("Log In")) {
 					Intent intent = new Intent();
 					intent.setClass(MainActivity.this, LoginInterface.class);
 					MainActivity.this.startActivity(intent);
-					
-				}else if(loginButton.getText().toString().equals("Log Out")){					
+
+				} else if (loginButton.getText().toString().equals("Log Out")) {
 					image = (ImageView) findViewById(R.id.menuview);
 					image.setBackgroundResource(R.drawable.animation);
-					animationDrawable = (AnimationDrawable)image.getBackground();
+					animationDrawable = (AnimationDrawable) image
+							.getBackground();
 					image.post(new Runnable() {
-					    public void run()  {
-					            animationDrawable.start();
-					        }
+						public void run() {
+							animationDrawable.start();
+						}
 					});
-					admission=false;
+					try {
+						con.closeSocket();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					admission = false;
 					lightButton.setEnabled(false);
 					coffeeButton.setEnabled(false);
 					temperatureButton.setEnabled(false);
@@ -151,7 +159,7 @@ public class MainActivity extends Activity {
 					loginButton.setText("Log In");
 				}
 			}
-			
+
 		});
 
 		lightButton.setOnTouchListener(new View.OnTouchListener() {
@@ -162,7 +170,7 @@ public class MainActivity extends Activity {
 				} else if (event.getAction() == MotionEvent.ACTION_UP) {
 					lightButton.setBackgroundResource(R.drawable.radio);
 					Intent intent = new Intent();
-					intent.setClass(MainActivity.this, LightInterface.class);
+					intent.setClass(MainActivity.this, LightInInterface.class);
 					MainActivity.this.startActivity(intent);
 					return true;
 				} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
@@ -172,7 +180,7 @@ public class MainActivity extends Activity {
 				return false;
 			}
 		});
-		
+
 		lightOutButton.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -209,7 +217,7 @@ public class MainActivity extends Activity {
 				return false;
 			}
 		});
-		
+
 		HeatingButton.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -228,7 +236,7 @@ public class MainActivity extends Activity {
 				return false;
 			}
 		});
-		
+
 		BathButton.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -247,7 +255,7 @@ public class MainActivity extends Activity {
 				return false;
 			}
 		});
-		
+
 		DoorButton.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -285,16 +293,12 @@ public class MainActivity extends Activity {
 			}
 		});
 
-
-
-
 		this.coffeeButton.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 
 				if (event.getAction() == MotionEvent.ACTION_DOWN) {
-									
+
 					coffeeButton.setBackgroundResource(R.drawable.radiopress);
-				
 
 					return true;
 				} else if (event.getAction() == MotionEvent.ACTION_UP) {
@@ -313,13 +317,15 @@ public class MainActivity extends Activity {
 		this.temperatureButton.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				if (event.getAction() == MotionEvent.ACTION_DOWN) {
-					temperatureButton.setBackgroundResource(R.drawable.radiopress);
+					temperatureButton
+							.setBackgroundResource(R.drawable.radiopress);
 
 					return true;
 				} else if (event.getAction() == MotionEvent.ACTION_UP) {
 					temperatureButton.setBackgroundResource(R.drawable.radio);
 					Intent intent = new Intent();
-					intent.setClass(MainActivity.this,	TemperatureInterface.class);
+					intent.setClass(MainActivity.this,
+							TemperatureInterface.class);
 					MainActivity.this.startActivity(intent);
 					return true;
 				} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
@@ -332,38 +338,37 @@ public class MainActivity extends Activity {
 
 		});
 
-
 	}
 
-	
-
-//	public Socket getConnection() {
-//		
-//		if(socket==null)
-//		{
-//		try {
-//			socket = new Socket("194.47.40.66", 8000);
-//		} catch (UnknownHostException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		return socket;
-//		}else{
-//			return socket;
-//		}
-//	}
-//
-//	public BufferedReader getContent() throws IOException{
-//		Socket socket = getConnection();
-//		BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//		return in;
-//	}
-//	
-//	public PrintWriter sendContent() throws IOException{
-//		Socket socket = getConnection();
-//		PrintWriter out = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-//		return out;
-//	}
+	// public Socket getConnection() {
+	//
+	// if(socket==null)
+	// {
+	// try {
+	// socket = new Socket("194.47.40.66", 8000);
+	// } catch (UnknownHostException e) {
+	// e.printStackTrace();
+	// } catch (IOException e) {
+	// e.printStackTrace();
+	// }
+	// return socket;
+	// }else{
+	// return socket;
+	// }
+	// }
+	//
+	// public BufferedReader getContent() throws IOException{
+	// Socket socket = getConnection();
+	// BufferedReader in = new BufferedReader(new
+	// InputStreamReader(socket.getInputStream()));
+	// return in;
+	// }
+	//
+	// public PrintWriter sendContent() throws IOException{
+	// Socket socket = getConnection();
+	// PrintWriter out = new PrintWriter(new
+	// OutputStreamWriter(socket.getOutputStream()));
+	// return out;
+	// }
 
 }

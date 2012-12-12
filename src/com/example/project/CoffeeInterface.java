@@ -1,21 +1,9 @@
 package com.example.project;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.Socket;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -37,32 +25,29 @@ public class CoffeeInterface extends Activity {
 		CoffeeoffButton = (Button) this.findViewById(R.id.Coffeenobutton);
 		CoffeebackButton = (Button) this.findViewById(R.id.Coffeebackbutton);
 
-		//check();
+		check();
 	}
 	public void check(){		
-		boolean ok = false;
-		if (ok == false) {
-			String response;
-			try {
-				LoginInterface login = new LoginInterface();
-				response=LoginInterface.initsmarthouse[6];
-				Log.i("DDDDDDDDDDDDDDDd", response+" the  array is -----------------------------6");
-				if (response.equals("coffee:on")) {
-					CoffeeIV.setBackgroundResource(R.drawable.coffee);
-				} else {
-					CoffeeIV.setBackgroundResource(R.drawable.nocoffee);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			ok = true;
+		//String [] coffeeint=LoginInterface.initsmarthouse[6].split(":");
+		if(Connection.initStates.contains("coffee:on"))
+		{
+			CoffeeIV.setBackgroundResource(R.drawable.coffeeyes);
+		}else{
+			CoffeeIV.setBackgroundResource(R.drawable.coffeeno);
 		}
 
 	}
 	
 	public void CoffeebuttonOnClicked(View view){
 		con.setResult("coffee:on");
-		con.getResult();
+		Connection.initStates = con.getResult();
+		if (Connection.initStates.contains("coffee:on")) {
+
+			CoffeeIV.setBackgroundResource(R.drawable.coffeeyes);
+
+		} else {
+
+		}
 		
 
 		CoffeeonButton.setVisibility(view.INVISIBLE);
@@ -72,7 +57,15 @@ public class CoffeeInterface extends Activity {
 	
 	public void CoffeebuttonOffClicked(View view){
 		con.setResult("coffee:off");
-		con.getResult();
+		Connection.initStates = con.getResult();
+		
+		if (Connection.initStates.contains("coffee:off")) {
+
+			CoffeeIV.setBackgroundResource(R.drawable.coffeeno);
+
+		} else {
+
+		}
 		
 
 		CoffeeoffButton.setVisibility(view.INVISIBLE);

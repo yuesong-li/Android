@@ -1,21 +1,11 @@
 package com.example.project;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.Socket;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -36,35 +26,31 @@ public class DoorInterface extends Activity {
 		DooronButton = (Button) this.findViewById(R.id.Dooryesbutton);
 		DooroffButton = (Button) this.findViewById(R.id.Doornobutton);
 		DoorbackButton = (Button) this.findViewById(R.id.Doorbackbutton);
-
-		//check();
+		check();
 	   
 	}
-	public void check(){		
-		boolean ok = false;
-		if (ok == false) {
-			String response;
-			try {
-//				LoginInterface login = new LoginInterface();
-				response=LoginInterface.initsmarthouse[4];
-				Log.i("DDDDDDDDDDDDDDDd", response+" the  array is -----------------------------4");
-				if (response.equals("door:on")) {
-					DoorIV.setBackgroundResource(R.drawable.dooropen);
-				} else {
-					DoorIV.setBackgroundResource(R.drawable.doorclose);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			ok = true;
+	public void check(){
+		//String [] Doorint=LoginInterface.initsmarthouse[4].split(":");
+		if(Connection.initStates.contains("door:open"))
+		{
+			DoorIV.setBackgroundResource(R.drawable.dooropen);
+		}else{
+			DoorIV.setBackgroundResource(R.drawable.doorclose);
 		}
-
 	}
 	
 	public void DoorbuttonOnClicked(View view){
 		
-		con.setResult("door:on");
-		String msg = con.getResult();
+		con.setResult("door:open");
+		Connection.initStates = con.getResult();
+		
+		if (Connection.initStates.contains("door:open")) {
+
+			DoorIV.setBackgroundResource(R.drawable.dooropen);
+
+		} else {
+
+		}
 		
 
 		DooronButton.setVisibility(view.INVISIBLE);
@@ -74,8 +60,16 @@ public class DoorInterface extends Activity {
 	
 	public void DoorbuttonOffClicked(View view){
 		
-		con.setResult("door:off");
-		String msg = con.getResult();
+		con.setResult("door:close");
+		Connection.initStates = con.getResult();
+		
+		if (Connection.initStates.contains("door:close")) {
+
+			DoorIV.setBackgroundResource(R.drawable.doorclose);
+
+		} else {
+
+		}
 
 		
 		DooroffButton.setVisibility(view.INVISIBLE);

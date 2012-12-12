@@ -1,21 +1,9 @@
 package com.example.project;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.Socket;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -36,33 +24,30 @@ public class HeatingInterface extends Activity {
 		HeatingoffButton = (Button) this.findViewById(R.id.Heatingnobutton);
 		HeatingbackButton = (Button) this.findViewById(R.id.Heatingbackbutton);
 
-		//check();
+		check();
 		
 	}
 	public void check(){		
-		boolean ok = false;
-		if (ok == false) {
-			String response;
-			try {
-				LoginInterface login = new LoginInterface();
-				response=LoginInterface.initsmarthouse[3];
-				Log.i("DDDDDDDDDDDDDDDd", response+" the  array is -----------------------------3");
-				if (response.equals("heating:on")) {
-					HeatingIV.setBackgroundResource(R.drawable.heating);
-				} else {
-					HeatingIV.setBackgroundResource(R.drawable.noheating);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			ok = true;
+		//String [] Heatingint=LoginInterface.initsmarthouse[3].split(":");
+		if(Connection.initStates.contains("heaterRoom:on"))
+		{
+			HeatingIV.setBackgroundResource(R.drawable.heating);
+		}else{
+			HeatingIV.setBackgroundResource(R.drawable.noheating);
 		}
-
 	}
 	
 	public void HeatingbuttonOnClicked(View view){
-		con.setResult("heating:on");
-		con.getResult();
+		con.setResult("heaterRoom:on");
+		Connection.initStates = con.getResult();
+		
+		if (Connection.initStates.contains("heaterRoom:on")) {
+
+			HeatingIV.setBackgroundResource(R.drawable.heating);
+
+		} else {
+
+		}
 		
 
 		
@@ -72,8 +57,16 @@ public class HeatingInterface extends Activity {
 	}
 	
 	public void HeatingbuttonOffClicked(View view){
-		con.setResult("heating:off");
-		con.getResult();
+		con.setResult("heaterRoom:off");
+		Connection.initStates = con.getResult();
+		
+		if (Connection.initStates.contains("heaterRoom:off")) {
+
+			HeatingIV.setBackgroundResource(R.drawable.noheating);
+
+		} else {
+
+		}
 		
 
 		HeatingoffButton.setVisibility(view.INVISIBLE);

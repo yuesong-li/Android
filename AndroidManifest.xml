@@ -27,7 +27,7 @@
         </activity>
        <activity android:name="MainActivity"/>
         <activity android:name="CoffeeInterface"/>
-        <activity android:name="LightInterface"/>
+        <activity android:name=".LightInInterface"/>
         <activity android:name="LightOutInterface"/>
          <activity android:name="TemperatureInterface"/>
          <activity android:name="LoginInterface"/>
