@@ -25,7 +25,7 @@ public class BathInterface extends Activity {
 		BathonButton = (Button) this.findViewById(R.id.Bathyesbutton);
 		BathoffButton = (Button) this.findViewById(R.id.Bathnobutton);
 		BathbackButton = (Button) this.findViewById(R.id.Bathbackbutton);
-		// check();
+		check();
 
 	}
 
