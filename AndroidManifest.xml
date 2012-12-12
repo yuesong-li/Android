@@ -25,17 +25,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-       <activity android:name="MainActivity"/>
-        <activity android:name="CoffeeInterface"/>
-        <activity android:name=".LightInInterface"/>
-        <activity android:name="LightOutInterface"/>
-         <activity android:name="TemperatureInterface"/>
-         <activity android:name="LoginInterface"/>
-         <activity android:name="FanInterface"/>
-         <activity android:name="HeatingInterface"/>
-           <activity android:name="DoorInterface"/>
-             <activity android:name="StoveInterface"/>
-              <activity android:name="BathInterface"/>
+        <activity android:name="MainActivity" />
+        <activity android:name="CoffeeInterface" />
+        <activity android:name=".LightInInterface" />
+        <activity android:name="LightOutInterface" />
+        <activity android:name="TemperatureInterface" />
+        <activity android:name="LoginInterface" />
+        <activity android:name="FanInterface" />
+        <activity android:name="HeatingInterface" />
+        <activity android:name="DoorInterface" />
+        <activity android:name="StoveInterface" />
+        <activity android:name="BathInterface" />
+
+        <service
+            android:name=".MyService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>

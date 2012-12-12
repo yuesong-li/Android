@@ -68,6 +68,9 @@ public class LoginInterface extends Activity {
 						Intent intent = new Intent();
 						intent.setClass(LoginInterface.this, MainActivity.class);
 						LoginInterface.this.startActivity(intent);
+						
+						//start the service
+						startService(new Intent(getBaseContext(), MyService.class));
 					}
 				} else {
 					// Toast toast = Toast.makeText(getApplicationContext(),
