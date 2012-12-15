@@ -13,7 +13,7 @@ public class FanInterface extends Activity {
 	private Button FanbackButton;
 	static ImageView FanIV;	
 	boolean LoopStatus=true;
-	
+	static boolean FAN=false;
 	Connection con = Connection.getConnection();
 	
 	@Override
@@ -24,10 +24,11 @@ public class FanInterface extends Activity {
 		FanonButton = (Button) this.findViewById(R.id.Fanyesbutton);
 		FanoffButton = (Button) this.findViewById(R.id.Fannobutton);
 		FanbackButton = (Button) this.findViewById(R.id.Fanbackbutton);
-		check();   
+		Fancheck();   
+		FAN=true;
 	   
 	}
-	public void check(){
+	public static void Fancheck(){
 		//String [] Fanint=LoginInterface.initsmarthouse[2].split(":");
 		if(Connection.initStates.contains("fan:on"))
 		{
@@ -50,7 +51,7 @@ public class FanInterface extends Activity {
 
 		}
 		
-		
+		con.UpdateForDeviceImages();
 		FanoffButton.setVisibility(view.VISIBLE);
 		FanonButton.setVisibility(view.INVISIBLE);
 	}
@@ -67,7 +68,7 @@ public class FanInterface extends Activity {
 
 		}
 		
-
+		con.UpdateForDeviceImages();
 		FanoffButton.setVisibility(view.INVISIBLE);
 		FanonButton.setVisibility(view.VISIBLE);
 		

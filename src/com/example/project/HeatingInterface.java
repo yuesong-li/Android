@@ -14,7 +14,7 @@ public class HeatingInterface extends Activity {
 	static ImageView HeatingIV;	
 	boolean LoopStatus=true;
 	Connection con = Connection.getConnection();
-	
+	static boolean HEATING=false; 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -23,11 +23,11 @@ public class HeatingInterface extends Activity {
 		HeatingonButton = (Button) this.findViewById(R.id.Heatingyesbutton);
 		HeatingoffButton = (Button) this.findViewById(R.id.Heatingnobutton);
 		HeatingbackButton = (Button) this.findViewById(R.id.Heatingbackbutton);
-
-		check();
+		Heatingcheck();
+		HEATING=true;
 		
 	}
-	public void check(){		
+	public static void Heatingcheck(){		
 		//String [] Heatingint=LoginInterface.initsmarthouse[3].split(":");
 		if(Connection.initStates.contains("heaterRoom:on"))
 		{
@@ -49,8 +49,8 @@ public class HeatingInterface extends Activity {
 
 		}
 		
-
-		
+	
+		con.UpdateForDeviceImages();
 		HeatingonButton.setVisibility(view.INVISIBLE);
 		HeatingoffButton .setVisibility(view.VISIBLE);
 		
@@ -68,7 +68,7 @@ public class HeatingInterface extends Activity {
 
 		}
 		
-
+		con.UpdateForDeviceImages();
 		HeatingoffButton.setVisibility(view.INVISIBLE);
 		HeatingonButton.setVisibility(view.VISIBLE);	
 	}

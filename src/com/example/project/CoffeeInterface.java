@@ -14,7 +14,7 @@ public class CoffeeInterface extends Activity {
 	static ImageView CoffeeIV;
 	
 	Connection con = Connection.getConnection();
-	
+	static boolean COFFEE=false;
 	boolean LoopStatus=true;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -25,15 +25,16 @@ public class CoffeeInterface extends Activity {
 		CoffeeoffButton = (Button) this.findViewById(R.id.Coffeenobutton);
 		CoffeebackButton = (Button) this.findViewById(R.id.Coffeebackbutton);
 
-		check();
+		Coffeecheck();
+		COFFEE=true;
 	}
-	public void check(){		
+	public static void Coffeecheck(){		
 		//String [] coffeeint=LoginInterface.initsmarthouse[6].split(":");
 		if(Connection.initStates.contains("coffee:on"))
 		{
-			CoffeeIV.setBackgroundResource(R.drawable.coffeeyes);
+			CoffeeIV.setBackgroundResource(R.drawable.coffee);
 		}else{
-			CoffeeIV.setBackgroundResource(R.drawable.coffeeno);
+			CoffeeIV.setBackgroundResource(R.drawable.nocoffee);
 		}
 
 	}
@@ -43,13 +44,13 @@ public class CoffeeInterface extends Activity {
 		Connection.initStates = con.getResult();
 		if (Connection.initStates.contains("coffee:on")) {
 
-			CoffeeIV.setBackgroundResource(R.drawable.coffeeyes);
+			CoffeeIV.setBackgroundResource(R.drawable.coffee);
 
 		} else {
 
 		}
 		
-
+		con.UpdateForDeviceImages();
 		CoffeeonButton.setVisibility(view.INVISIBLE);
 		CoffeeoffButton.setVisibility(view.VISIBLE);
 		
@@ -61,13 +62,13 @@ public class CoffeeInterface extends Activity {
 		
 		if (Connection.initStates.contains("coffee:off")) {
 
-			CoffeeIV.setBackgroundResource(R.drawable.coffeeno);
+			CoffeeIV.setBackgroundResource(R.drawable.nocoffee);
 
 		} else {
 
 		}
 		
-
+		con.UpdateForDeviceImages();
 		CoffeeoffButton.setVisibility(view.INVISIBLE);
 		CoffeeonButton.setVisibility(view.VISIBLE);
 	}

@@ -15,6 +15,7 @@ public class StoveInterface extends Activity {
 	boolean LoopStatus=true;
 	
 	Connection con = Connection.getConnection();
+	static boolean STOVE=false;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -23,9 +24,10 @@ public class StoveInterface extends Activity {
 		StoveonButton = (Button) this.findViewById(R.id.Stoveyesbutton);
 		StoveoffButton = (Button) this.findViewById(R.id.Stovenobutton);
 		StovebackButton = (Button) this.findViewById(R.id.Stovebackbutton);
-		check();
+		Stovecheck();
+		STOVE=true;
 	}
-	public void check(){		
+	public static void Stovecheck(){		
 		//String [] stoveint=LoginInterface.initsmarthouse[5].split(":");
 		if(Connection.initStates.contains("stove:on"))
 		{
@@ -47,6 +49,8 @@ public class StoveInterface extends Activity {
 		}else{
 			
 		}
+		
+		con.UpdateForDeviceImages();
 		StoveonButton.setVisibility(view.INVISIBLE);
 		StoveoffButton.setVisibility(view.VISIBLE);
 	}
@@ -61,7 +65,7 @@ public class StoveInterface extends Activity {
 		}else{
 			
 		}
-		
+		con.UpdateForDeviceImages();		
 		StoveoffButton.setVisibility(view.INVISIBLE);
 		StoveonButton.setVisibility(view.VISIBLE);
 	}

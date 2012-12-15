@@ -16,7 +16,7 @@ public class BathInterface extends Activity {
 	boolean LoopStatus = true;
 
 	Connection con = Connection.getConnection();
-
+    static boolean BATH =false;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -25,11 +25,12 @@ public class BathInterface extends Activity {
 		BathonButton = (Button) this.findViewById(R.id.Bathyesbutton);
 		BathoffButton = (Button) this.findViewById(R.id.Bathnobutton);
 		BathbackButton = (Button) this.findViewById(R.id.Bathbackbutton);
-		check();
+		Bathcheck();
+		BATH=true;
 
 	}
 
-	public void check() {
+	public static void Bathcheck() {
 		//String[] bathStatus = LoginInterface.initsmarthouse[7].trim().split(":");
 		if (Connection.initStates.contains("bath:on")) {
 			BathIV.setBackgroundResource(R.drawable.bathok);
@@ -50,7 +51,8 @@ public class BathInterface extends Activity {
 		} else {
 
 		}
-
+		con.UpdateForDeviceImages();
+		
 		BathonButton.setVisibility(view.INVISIBLE);
 		BathoffButton.setVisibility(view.VISIBLE);
 	}
@@ -65,6 +67,7 @@ public class BathInterface extends Activity {
 		} else {
 
 		}
+		con.UpdateForDeviceImages();
 		BathoffButton.setVisibility(View.INVISIBLE);
 		BathonButton.setVisibility(View.VISIBLE);
 

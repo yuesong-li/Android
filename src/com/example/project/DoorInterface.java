@@ -16,6 +16,7 @@ public class DoorInterface extends Activity {
 	static ImageView DoorIV;
 	
 	boolean LoopStatus=true;
+	static boolean DOOR=false;
 	
 	Connection con = Connection.getConnection();
 	@Override
@@ -26,10 +27,11 @@ public class DoorInterface extends Activity {
 		DooronButton = (Button) this.findViewById(R.id.Dooryesbutton);
 		DooroffButton = (Button) this.findViewById(R.id.Doornobutton);
 		DoorbackButton = (Button) this.findViewById(R.id.Doorbackbutton);
-		check();
+		Doorcheck();
+		DOOR=true;
 	   
 	}
-	public void check(){
+	public static void Doorcheck(){
 		//String [] Doorint=LoginInterface.initsmarthouse[4].split(":");
 		if(Connection.initStates.contains("door:open"))
 		{
@@ -52,7 +54,7 @@ public class DoorInterface extends Activity {
 
 		}
 		
-
+		con.UpdateForDeviceImages();
 		DooronButton.setVisibility(view.INVISIBLE);
 		DooroffButton .setVisibility(view.VISIBLE);
 		
@@ -71,7 +73,7 @@ public class DoorInterface extends Activity {
 
 		}
 
-		
+		con.UpdateForDeviceImages();
 		DooroffButton.setVisibility(view.INVISIBLE);
 		DooronButton.setVisibility(view.VISIBLE);		
 	}

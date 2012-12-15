@@ -13,12 +13,13 @@ public class LightOutInterface extends Activity {
 	private Button lighOutonButton;
 	private Button lightOutoffButton;
 	private Button lightOutbackButton;
-	static ImageView lightOutIV;
+    static  ImageView lightOutIV;
 
 	LoginInterface li = new LoginInterface();
 	Connection con = Connection.getConnection();
 	boolean LoopStatus = true;
 
+	static boolean LIGHTOUT=false;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,10 +28,11 @@ public class LightOutInterface extends Activity {
 		lighOutonButton = (Button) this.findViewById(R.id.lightOutyesbutton);
 		lightOutoffButton = (Button) this.findViewById(R.id.lightOutnobutton);
 		lightOutbackButton = (Button) this.findViewById(R.id.lightOutbackbutton);
-		check();
+		LightOutcheck();
+		LIGHTOUT=true;
 	}
 
-	public void check() {
+	public static void LightOutcheck() {
 		//String [] Lightint=LoginInterface.initsmarthouse[1].split(":");
 		if(Connection.initStates.contains("lightOut:on"))
 		{
@@ -48,6 +50,8 @@ public class LightOutInterface extends Activity {
 		} else {
 
 		}
+		
+		con.UpdateForDeviceImages();
 		lighOutonButton.setVisibility(view.INVISIBLE);
 		lightOutoffButton.setVisibility(view.VISIBLE);
 
@@ -61,7 +65,7 @@ public class LightOutInterface extends Activity {
 		} else {
 
 		}
-
+		con.UpdateForDeviceImages();
 		lighOutonButton.setVisibility(view.VISIBLE);
 		lightOutoffButton.setVisibility(view.INVISIBLE);
 
