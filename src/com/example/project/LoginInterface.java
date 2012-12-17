@@ -3,6 +3,7 @@ package com.example.project;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -24,6 +25,7 @@ public class LoginInterface extends Activity {
 	public String UserName = "";
 	public String PassWord = "";
 
+	
 	// Connection con = Connection.getConnection();
 
 	@Override
@@ -41,15 +43,19 @@ public class LoginInterface extends Activity {
 
 		this.LoginButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				Connection conn = Connection.getConnection();
+			
+				
 				if (!UserNameField.getText().toString().equals("")
 						&& !PassWordField.getText().toString().equals("")) {
-
+					Connection conn = Connection.getConnection();
 					// sending username:password to server for authentication
 					conn.setResult(UserNameField.getText() + ":"
 							+ PassWordField.getText());
 					String result = conn.getResult();
+					Log.i("TAG", "Result from login : " + result);
+					
 					String[] splits = result.split(":");
+					
 					if (splits[1].equals("fail")) {
 						Intent intent = new Intent();
 						intent.setClass(LoginInterface.this, MainActivity.class);
@@ -64,13 +70,14 @@ public class LoginInterface extends Activity {
 						}
 						MainActivity.admission = true;
 						Connection.initStates = conn.getResult();
+						Log.i("TAG", "States : " + Connection.initStates);
+						
 						Intent intent = new Intent();
 						intent.setClass(LoginInterface.this, MainActivity.class);
 						LoginInterface.this.startActivity(intent);
-
-						// start the service
-						startService(new Intent(getBaseContext(),
-								MyService.class));
+						
+						MyService myservice = new MyService();
+						myservice.execute();
 					}
 				} else {
 					// Toast toast = Toast.makeText(getApplicationContext(),
@@ -94,6 +101,7 @@ public class LoginInterface extends Activity {
 
 		this.BackButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
+		
 				Intent intent = new Intent();
 				intent.setClass(LoginInterface.this, MainActivity.class);
 				LoginInterface.this.startActivity(intent);

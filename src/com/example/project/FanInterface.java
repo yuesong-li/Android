@@ -13,9 +13,9 @@ public class FanInterface extends Activity {
 	private Button FanbackButton;
 	static ImageView FanIV;	
 	boolean LoopStatus=true;
-	
+	static boolean FAN=false;
 	Connection con = Connection.getConnection();
-	
+	private static String localStatus;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -24,11 +24,13 @@ public class FanInterface extends Activity {
 		FanonButton = (Button) this.findViewById(R.id.Fanyesbutton);
 		FanoffButton = (Button) this.findViewById(R.id.Fannobutton);
 		FanbackButton = (Button) this.findViewById(R.id.Fanbackbutton);
-		check();   
+		Fancheck();   
+		FAN=true;
 	   
 	}
-	public void check(){
+	public static void Fancheck(){
 		//String [] Fanint=LoginInterface.initsmarthouse[2].split(":");
+		localStatus = Connection.initStates;
 		if(Connection.initStates.contains("fan:on"))
 		{
 			FanIV.setBackgroundResource(R.drawable.fanopen);
@@ -40,8 +42,11 @@ public class FanInterface extends Activity {
 	
 	public void FanbuttonOnClicked(View view){
 		con.setResult("fan:on");
-		Connection.initStates = con.getResult();
-		
+		//Connection.initStates = con.getResult();
+		String temp = Connection.initStates;
+		while (localStatus.equals(temp)) {
+			temp = Connection.initStates;
+		}
 		if (Connection.initStates.contains("fan:on")) {
 
 			FanIV.setBackgroundResource(R.drawable.fanopen);
@@ -50,15 +55,18 @@ public class FanInterface extends Activity {
 
 		}
 		
-		
+		con.UpdateForDeviceImages();
 		FanoffButton.setVisibility(view.VISIBLE);
 		FanonButton.setVisibility(view.INVISIBLE);
 	}
 	
 	public void FanbuttonOffClicked(View view){
 		con.setResult("fan:off");
-		Connection.initStates = con.getResult();
-		
+		//Connection.initStates = con.getResult();
+		String temp = Connection.initStates;
+		while (localStatus.equals(temp)) {
+			temp = Connection.initStates;
+		}
 		if (Connection.initStates.contains("fan:off")) {
 
 			FanIV.setBackgroundResource(R.drawable.fanclose);
@@ -67,7 +75,7 @@ public class FanInterface extends Activity {
 
 		}
 		
-
+		con.UpdateForDeviceImages();
 		FanoffButton.setVisibility(view.INVISIBLE);
 		FanonButton.setVisibility(view.VISIBLE);
 		

@@ -14,8 +14,9 @@ public class DoorInterface extends Activity {
 	private Button DooroffButton;
 	private Button DoorbackButton;
 	static ImageView DoorIV;
-	
+	private static String localStatus;
 	boolean LoopStatus=true;
+	static boolean DOOR=false;
 	
 	Connection con = Connection.getConnection();
 	@Override
@@ -26,11 +27,13 @@ public class DoorInterface extends Activity {
 		DooronButton = (Button) this.findViewById(R.id.Dooryesbutton);
 		DooroffButton = (Button) this.findViewById(R.id.Doornobutton);
 		DoorbackButton = (Button) this.findViewById(R.id.Doorbackbutton);
-		check();
+		Doorcheck();
+		DOOR=true;
 	   
 	}
-	public void check(){
+	public static void Doorcheck(){
 		//String [] Doorint=LoginInterface.initsmarthouse[4].split(":");
+		localStatus = Connection.initStates;
 		if(Connection.initStates.contains("door:open"))
 		{
 			DoorIV.setBackgroundResource(R.drawable.dooropen);
@@ -42,7 +45,11 @@ public class DoorInterface extends Activity {
 	public void DoorbuttonOnClicked(View view){
 		
 		con.setResult("door:open");
-		Connection.initStates = con.getResult();
+		//Connection.initStates = con.getResult();
+		String temp = Connection.initStates;
+		while (localStatus.equals(temp)) {
+			temp = Connection.initStates;
+		}
 		
 		if (Connection.initStates.contains("door:open")) {
 
@@ -52,7 +59,7 @@ public class DoorInterface extends Activity {
 
 		}
 		
-
+		con.UpdateForDeviceImages();
 		DooronButton.setVisibility(view.INVISIBLE);
 		DooroffButton .setVisibility(view.VISIBLE);
 		
@@ -61,8 +68,11 @@ public class DoorInterface extends Activity {
 	public void DoorbuttonOffClicked(View view){
 		
 		con.setResult("door:close");
-		Connection.initStates = con.getResult();
-		
+		//Connection.initStates = con.getResult();
+		String temp = Connection.initStates;
+		while (localStatus.equals(temp)) {
+			temp = Connection.initStates;
+		}
 		if (Connection.initStates.contains("door:close")) {
 
 			DoorIV.setBackgroundResource(R.drawable.doorclose);
@@ -71,7 +81,7 @@ public class DoorInterface extends Activity {
 
 		}
 
-		
+		con.UpdateForDeviceImages();
 		DooroffButton.setVisibility(view.INVISIBLE);
 		DooronButton.setVisibility(view.VISIBLE);		
 	}

@@ -3,6 +3,7 @@ package com.example.project;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,11 +13,13 @@ public class LightInInterface extends Activity {
 	private Button offButton;
 	private Button backButton;
 	static ImageView lightInIV;
+	private static String localStatus;
 
 	LoginInterface li = new LoginInterface();
 	Connection con = Connection.getConnection();
 
 	boolean LoopStatus = true;
+	static boolean LIGHTIN = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -26,28 +29,43 @@ public class LightInInterface extends Activity {
 		onButton = (Button) this.findViewById(R.id.yesbutton);
 		offButton = (Button) this.findViewById(R.id.nobutton);
 		backButton = (Button) this.findViewById(R.id.lightbackbutton);
-		check();
+		LightIncheck();
+		LIGHTIN = true;
 	}
 
-	public void check() {
+	public static void LightIncheck() {
 		// String [] Lightint=LoginInterface.initsmarthouse[0].split(":");
+		localStatus = Connection.initStates;
 		if (Connection.initStates.contains("lightIn:on")) {
 			lightInIV.setBackgroundResource(R.drawable.lighton);
 		} else {
 			lightInIV.setBackgroundResource(R.drawable.lightoff);
 		}
+
 	}
 
 	public void buttonOnClicked(View view) {
 
 		con.setResult("lightIn:on");
-		Connection.initStates = con.getResult();
+		// try{
+		// this.wait(2000);
+		// }catch(InterruptedException iex){
+		// iex.printStackTrace();
+		// }
+		// for (int i = 0; i < 100000; i++) {
+		// String s = i + "";
+		// }
+		String temp = Connection.initStates;
+		while (localStatus.equals(temp)) {
+			temp = Connection.initStates;
+		}
 		if (Connection.initStates.contains("lightIn:on")) {
 			lightInIV.setBackgroundResource(R.drawable.lighton);
 		} else {
 
 		}
 
+		con.UpdateForDeviceImages();
 		onButton.setVisibility(view.INVISIBLE);
 		offButton.setVisibility(view.VISIBLE);
 
@@ -56,12 +74,24 @@ public class LightInInterface extends Activity {
 	public void buttonOffClicked(View view) {
 		// offButton.setBackgroundResource(R.drawable.fanok);
 		con.setResult("lightIn:off");
-		Connection.initStates = con.getResult();
+		// try{
+		// this.wait(2000);
+		// }catch(InterruptedException iex){
+		// iex.printStackTrace();
+		// }
+		// for (int i = 0; i < 100000; i++) {
+		// String s = i + "";
+		// }
+		String temp = Connection.initStates;
+		while (localStatus.equals(temp)) {
+			temp = Connection.initStates;
+		}
 		if (Connection.initStates.contains("lightIn:off")) {
 			lightInIV.setBackgroundResource(R.drawable.lightoff);
 		} else {
 
 		}
+		con.UpdateForDeviceImages();
 		onButton.setVisibility(view.VISIBLE);
 		offButton.setVisibility(view.INVISIBLE);
 	}

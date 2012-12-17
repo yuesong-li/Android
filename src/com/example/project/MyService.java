@@ -1,54 +1,56 @@
 package com.example.project;
 
-import android.app.Service;
-import android.content.Intent;
-import android.os.IBinder;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+
+import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
-public class MyService extends Service {
-	@Override
-	public void onStart(Intent intent, int startId) {
-		// TODO Auto-generated method stub
-		super.onStart(intent, startId);
-	}
+public class MyService extends AsyncTask<Void, Void, String> {
 
-	String updateMsgFromServer = "";
-	final String TAG = "MYSERVICE";
+	private Socket socket = null;
+	private BufferedReader br = null;
+	// private String receivedUpdate = "";
+	private final String TAG = "MYSERVICE";
+	private Connection conn;
 
 	public MyService() {
+		conn = Connection.getConnection();
+		socket = conn.socket;
+		try {
+			br = new BufferedReader(new InputStreamReader(
+					socket.getInputStream()), 8192);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Log.i(TAG, "Service is running on local port: " + socket.getLocalPort()
+				+ socket.getRemoteSocketAddress());
 	}
 
 	@Override
-	public IBinder onBind(Intent intent) {
-		// TODO: Return the communication channel to the service.
-		throw new UnsupportedOperationException("Not yet implemented");
-	}
-
-	@Override
-	public void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-	}
-
-	@Override
-	public int onStartCommand(Intent intent, int flags, int startId) {
+	protected String doInBackground(Void... params) {
 		listenForUpdate();
-		return START_STICKY;
+		return null;
 	}
 
 	public void listenForUpdate() {
-		Connection conn = Connection.getConnection();
 		while (true) {
 			try {
-				updateMsgFromServer = conn.getResult();
-			} catch (Exception ex) {
-				ex.printStackTrace();
+				Log.i(TAG, "im in listen for update!");
+				String msg = br.readLine();
+				handleUpdate(msg);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			Toast.makeText(getBaseContext(), "Received Update: "
-					+ updateMsgFromServer, 30);
-			Log.i(TAG, "Received Update: " + updateMsgFromServer);
-			// Log.i(TAG, "Error");
 		}
+	}
+
+	public void handleUpdate(String update) {
+		Log.i(TAG, "Received Update: " + update);
+		conn.initStates = update;
+		//conn.UpdateForDeviceImages();
 	}
 }

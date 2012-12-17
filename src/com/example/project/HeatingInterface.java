@@ -14,7 +14,8 @@ public class HeatingInterface extends Activity {
 	static ImageView HeatingIV;	
 	boolean LoopStatus=true;
 	Connection con = Connection.getConnection();
-	
+	static boolean HEATING=false; 
+	private static String localStatus;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -23,12 +24,13 @@ public class HeatingInterface extends Activity {
 		HeatingonButton = (Button) this.findViewById(R.id.Heatingyesbutton);
 		HeatingoffButton = (Button) this.findViewById(R.id.Heatingnobutton);
 		HeatingbackButton = (Button) this.findViewById(R.id.Heatingbackbutton);
-
-		check();
+		Heatingcheck();
+		HEATING=true;
 		
 	}
-	public void check(){		
+	public static void Heatingcheck(){		
 		//String [] Heatingint=LoginInterface.initsmarthouse[3].split(":");
+		localStatus = Connection.initStates;
 		if(Connection.initStates.contains("heaterRoom:on"))
 		{
 			HeatingIV.setBackgroundResource(R.drawable.heating);
@@ -39,8 +41,11 @@ public class HeatingInterface extends Activity {
 	
 	public void HeatingbuttonOnClicked(View view){
 		con.setResult("heaterRoom:on");
-		Connection.initStates = con.getResult();
-		
+		//Connection.initStates = con.getResult();
+		String temp = Connection.initStates;
+		while (localStatus.equals(temp)) {
+			temp = Connection.initStates;
+		}
 		if (Connection.initStates.contains("heaterRoom:on")) {
 
 			HeatingIV.setBackgroundResource(R.drawable.heating);
@@ -49,8 +54,8 @@ public class HeatingInterface extends Activity {
 
 		}
 		
-
-		
+	
+		con.UpdateForDeviceImages();
 		HeatingonButton.setVisibility(view.INVISIBLE);
 		HeatingoffButton .setVisibility(view.VISIBLE);
 		
@@ -58,8 +63,11 @@ public class HeatingInterface extends Activity {
 	
 	public void HeatingbuttonOffClicked(View view){
 		con.setResult("heaterRoom:off");
-		Connection.initStates = con.getResult();
-		
+		//Connection.initStates = con.getResult();
+		String temp = Connection.initStates;
+		while (localStatus.equals(temp)) {
+			temp = Connection.initStates;
+		}
 		if (Connection.initStates.contains("heaterRoom:off")) {
 
 			HeatingIV.setBackgroundResource(R.drawable.noheating);
@@ -68,7 +76,7 @@ public class HeatingInterface extends Activity {
 
 		}
 		
-
+		con.UpdateForDeviceImages();
 		HeatingoffButton.setVisibility(view.INVISIBLE);
 		HeatingonButton.setVisibility(view.VISIBLE);	
 	}

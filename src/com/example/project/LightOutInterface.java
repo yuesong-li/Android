@@ -13,12 +13,13 @@ public class LightOutInterface extends Activity {
 	private Button lighOutonButton;
 	private Button lightOutoffButton;
 	private Button lightOutbackButton;
-	static ImageView lightOutIV;
-
+    static  ImageView lightOutIV;
+    private static String localStatus;
 	LoginInterface li = new LoginInterface();
 	Connection con = Connection.getConnection();
 	boolean LoopStatus = true;
 
+	static boolean LIGHTOUT=false;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,11 +28,13 @@ public class LightOutInterface extends Activity {
 		lighOutonButton = (Button) this.findViewById(R.id.lightOutyesbutton);
 		lightOutoffButton = (Button) this.findViewById(R.id.lightOutnobutton);
 		lightOutbackButton = (Button) this.findViewById(R.id.lightOutbackbutton);
-		check();
+		LightOutcheck();
+		LIGHTOUT=true;
 	}
 
-	public void check() {
+	public static void LightOutcheck() {
 		//String [] Lightint=LoginInterface.initsmarthouse[1].split(":");
+		localStatus = Connection.initStates;
 		if(Connection.initStates.contains("lightOut:on"))
 		{
 			lightOutIV.setBackgroundResource(R.drawable.lighton);
@@ -42,12 +45,18 @@ public class LightOutInterface extends Activity {
 
 	public void lightOutbuttonOnClicked(View view) {		
 		con.setResult("lightOut:on");
-		Connection.initStates = con.getResult();
+		//Connection.initStates = con.getResult();
+		String temp = Connection.initStates;
+		while (localStatus.equals(temp)) {
+			temp = Connection.initStates;
+		}
 		if (Connection.initStates.contains("lightOut:on")) {
 			lightOutIV.setBackgroundResource(R.drawable.lighton);
 		} else {
 
 		}
+		
+		con.UpdateForDeviceImages();
 		lighOutonButton.setVisibility(view.INVISIBLE);
 		lightOutoffButton.setVisibility(view.VISIBLE);
 
@@ -55,13 +64,17 @@ public class LightOutInterface extends Activity {
 
 	public void lightOutbuttonOffClicked(View view) {
 		con.setResult("lightOut:off");
-		Connection.initStates = con.getResult();
+		//Connection.initStates = con.getResult();
+		String temp = Connection.initStates;
+		while (localStatus.equals(temp)) {
+			temp = Connection.initStates;
+		}
 		if (Connection.initStates.contains("lightOut:off")) {
 			lightOutIV.setBackgroundResource(R.drawable.lightoff);
 		} else {
 
 		}
-
+		con.UpdateForDeviceImages();
 		lighOutonButton.setVisibility(view.VISIBLE);
 		lightOutoffButton.setVisibility(view.INVISIBLE);
 
