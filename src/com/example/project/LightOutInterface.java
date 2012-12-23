@@ -10,75 +10,68 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 public class LightOutInterface extends Activity {
-	private Button lighOutonButton;
-	private Button lightOutoffButton;
+	
 	private Button lightOutbackButton;
-    static  ImageView lightOutIV;
+    static  Button lightOutIV;
     private static String localStatus;
-	LoginInterface li = new LoginInterface();
 	Connection con = Connection.getConnection();
 	boolean LoopStatus = true;
-
+    static boolean LightOutStatus=false;
 	static boolean LIGHTOUT=false;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.lightout);
-		lightOutIV = (ImageView) findViewById(R.id.lightOut);
-		lighOutonButton = (Button) this.findViewById(R.id.lightOutyesbutton);
-		lightOutoffButton = (Button) this.findViewById(R.id.lightOutnobutton);
+		lightOutIV = (Button) findViewById(R.id.Switchlightout);
 		lightOutbackButton = (Button) this.findViewById(R.id.lightOutbackbutton);
 		LightOutcheck();
 		LIGHTOUT=true;
 	}
 
 	public static void LightOutcheck() {
-		//String [] Lightint=LoginInterface.initsmarthouse[1].split(":");
 		localStatus = Connection.initStates;
 		if(Connection.initStates.contains("lightOut:on"))
 		{
-			lightOutIV.setBackgroundResource(R.drawable.lighton);
+			lightOutIV.setBackgroundResource(R.drawable.outdoorlighton);
+			LightOutStatus=true;
 		}else{
-			lightOutIV.setBackgroundResource(R.drawable.lightoff);
+			lightOutIV.setBackgroundResource(R.drawable.outdoorlightoff);
+			LightOutStatus=false;
 		}
 	}
 
-	public void lightOutbuttonOnClicked(View view) {		
+	public void lightOutbuttonClicked(View view) {		
+		
+		if(LightOutStatus==false)
+		{
 		con.setResult("lightOut:on");
-		//Connection.initStates = con.getResult();
 		String temp = Connection.initStates;
 		while (localStatus.equals(temp)) {
 			temp = Connection.initStates;
 		}
 		if (Connection.initStates.contains("lightOut:on")) {
-			lightOutIV.setBackgroundResource(R.drawable.lighton);
+			lightOutIV.setBackgroundResource(R.drawable.outdoorlighton);
 		} else {
 
 		}
 		
 		con.UpdateForDeviceImages();
-		lighOutonButton.setVisibility(view.INVISIBLE);
-		lightOutoffButton.setVisibility(view.VISIBLE);
+		}else if(LightOutStatus==true)
+		{
+			con.setResult("lightOut:off");
+			String temp = Connection.initStates;
+			while (localStatus.equals(temp)) {
+				temp = Connection.initStates;
+			}
+			if (Connection.initStates.contains("lightOut:off")) {
+				lightOutIV.setBackgroundResource(R.drawable.outdoorlightoff);
+			} else {
 
+			}
+			con.UpdateForDeviceImages();
+		}
 	}
 
-	public void lightOutbuttonOffClicked(View view) {
-		con.setResult("lightOut:off");
-		//Connection.initStates = con.getResult();
-		String temp = Connection.initStates;
-		while (localStatus.equals(temp)) {
-			temp = Connection.initStates;
-		}
-		if (Connection.initStates.contains("lightOut:off")) {
-			lightOutIV.setBackgroundResource(R.drawable.lightoff);
-		} else {
-
-		}
-		con.UpdateForDeviceImages();
-		lighOutonButton.setVisibility(view.VISIBLE);
-		lightOutoffButton.setVisibility(view.INVISIBLE);
-
-	}
 
 	public void lightOutbuttonBackClicked(View view) {
 		Intent intent = new Intent();

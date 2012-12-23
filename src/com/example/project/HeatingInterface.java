@@ -8,21 +8,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 public class HeatingInterface extends Activity {
-	private Button HeatingonButton;
-	private Button HeatingoffButton;
+	
 	private Button HeatingbackButton;
-	static ImageView HeatingIV;	
+	static Button HeatingIV;	
 	boolean LoopStatus=true;
 	Connection con = Connection.getConnection();
 	static boolean HEATING=false; 
+	static boolean HeatingStatus=false;
 	private static String localStatus;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.heating);
-		HeatingIV = (ImageView) findViewById(R.id.Heating);
-		HeatingonButton = (Button) this.findViewById(R.id.Heatingyesbutton);
-		HeatingoffButton = (Button) this.findViewById(R.id.Heatingnobutton);
+		HeatingIV = (Button) findViewById(R.id.SwitchHeatingbutton);
 		HeatingbackButton = (Button) this.findViewById(R.id.Heatingbackbutton);
 		Heatingcheck();
 		HEATING=true;
@@ -33,54 +31,53 @@ public class HeatingInterface extends Activity {
 		localStatus = Connection.initStates;
 		if(Connection.initStates.contains("heaterRoom:on"))
 		{
-			HeatingIV.setBackgroundResource(R.drawable.heating);
+			HeatingIV.setBackgroundResource(R.drawable.indoorheateron);
+			HeatingStatus=true;
 		}else{
-			HeatingIV.setBackgroundResource(R.drawable.noheating);
+			HeatingIV.setBackgroundResource(R.drawable.indoorheateroff);
+			HeatingStatus=false;
 		}
 	}
 	
-	public void HeatingbuttonOnClicked(View view){
+	public void HeatingbuttonClicked(View view){
+		
+		if(HeatingStatus==false)
+		{
 		con.setResult("heaterRoom:on");
-		//Connection.initStates = con.getResult();
 		String temp = Connection.initStates;
 		while (localStatus.equals(temp)) {
 			temp = Connection.initStates;
 		}
 		if (Connection.initStates.contains("heaterRoom:on")) {
 
-			HeatingIV.setBackgroundResource(R.drawable.heating);
+			HeatingIV.setBackgroundResource(R.drawable.indoorheateron);
+			HeatingStatus=true;
 
 		} else {
 
 		}
-		
-	
 		con.UpdateForDeviceImages();
-		HeatingonButton.setVisibility(view.INVISIBLE);
-		HeatingoffButton .setVisibility(view.VISIBLE);
 		
-	}
-	
-	public void HeatingbuttonOffClicked(View view){
-		con.setResult("heaterRoom:off");
-		//Connection.initStates = con.getResult();
-		String temp = Connection.initStates;
-		while (localStatus.equals(temp)) {
-			temp = Connection.initStates;
+		}else if(HeatingStatus==true)
+		{
+			con.setResult("heaterRoom:off");
+			//Connection.initStates = con.getResult();
+			String temp = Connection.initStates;
+			while (localStatus.equals(temp)) {
+				temp = Connection.initStates;
+			}
+			if (Connection.initStates.contains("heaterRoom:off")) {
+
+				HeatingIV.setBackgroundResource(R.drawable.indoorheateroff);
+				HeatingStatus=false;
+
+			} else {
+
+			}
+			
+			con.UpdateForDeviceImages();
 		}
-		if (Connection.initStates.contains("heaterRoom:off")) {
-
-			HeatingIV.setBackgroundResource(R.drawable.noheating);
-
-		} else {
-
-		}
-		
-		con.UpdateForDeviceImages();
-		HeatingoffButton.setVisibility(view.INVISIBLE);
-		HeatingonButton.setVisibility(view.VISIBLE);	
 	}
-	
 	public void HeatingbuttonBackClicked(View view){
 		Intent intent = new Intent();
 		intent.setClass(HeatingInterface.this, MainActivity.class);

@@ -2,10 +2,13 @@ package com.example.project;
 
 import java.io.BufferedReader;
 
+import com.example.project.R.color;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,13 +16,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
 	private RadioButton lightButton = null;
 	private RadioButton coffeeButton = null;
-	private RadioButton temperatureButton = null;
+	private RadioButton MediaButton = null;
 	private RadioButton lightOutButton = null;
 	private RadioButton HeatingButton = null;
 	private RadioButton StoveButton = null;
@@ -28,6 +32,11 @@ public class MainActivity extends Activity {
 	private RadioButton BathButton = null;
 	public Button loginButton = null;
 
+	public static TextView RoomTemptv = null;
+	public static TextView LoftTemptv = null;
+    public static TextView RoomTempValue=null;
+    public static TextView LoftTempValue=null;
+    
 	public static String accessLevel = "";
 	public static boolean admission = false;
 	public static BufferedReader in = null;
@@ -45,12 +54,16 @@ public class MainActivity extends Activity {
 		this.FanButton = (RadioButton) this.findViewById(R.id.Fanmenu);
 		this.HeatingButton = (RadioButton) this.findViewById(R.id.Heatingmenu);
 		this.coffeeButton = (RadioButton) this.findViewById(R.id.btn_1);
-		this.temperatureButton = (RadioButton) this.findViewById(R.id.btn_2);
+		this.MediaButton = (RadioButton) this.findViewById(R.id.btn_2);
 		this.loginButton = (Button) this.findViewById(R.id.Main_logInButton);
 		this.DoorButton = (RadioButton) this.findViewById(R.id.Doormenu);
 		this.StoveButton = (RadioButton) this.findViewById(R.id.Stovemenu);
 		this.BathButton = (RadioButton) this.findViewById(R.id.Bathmenu);
-
+		this.RoomTemptv = (TextView) this.findViewById(R.id.roomtemptv);
+		this.LoftTemptv = (TextView) this.findViewById(R.id.lofttemptv);
+		this.RoomTempValue=(TextView)this.findViewById(R.id.roomtempttvv);
+		this.LoftTempValue=(TextView)this.findViewById(R.id.lofttemptttvv);
+		tempcheck();
 		image = (ImageView) findViewById(R.id.menuview);
 		image.setBackgroundResource(R.drawable.animation);
 		animationDrawable = (AnimationDrawable) image.getBackground();
@@ -63,7 +76,7 @@ public class MainActivity extends Activity {
 		if (admission == false) {
 			lightButton.setEnabled(false);
 			coffeeButton.setEnabled(false);
-			temperatureButton.setEnabled(false);
+			MediaButton.setEnabled(false);
 			FanButton.setEnabled(false);
 			lightOutButton.setEnabled(false);
 			HeatingButton.setEnabled(false);
@@ -73,10 +86,11 @@ public class MainActivity extends Activity {
 			loginButton.setText("Log In");
 
 		} else {
+
 			if (accessLevel.equals("high")) {
 				lightButton.setEnabled(true);
 				coffeeButton.setEnabled(true);
-				temperatureButton.setEnabled(true);
+				MediaButton.setEnabled(true);
 				lightOutButton.setEnabled(true);
 				FanButton.setEnabled(true);
 				HeatingButton.setEnabled(true);
@@ -86,7 +100,7 @@ public class MainActivity extends Activity {
 				loginButton.setText("Log Out");
 			} else if (accessLevel.equals("low")) {
 				lightButton.setEnabled(true);
-				temperatureButton.setEnabled(true);
+				MediaButton.setEnabled(true);
 				lightOutButton.setEnabled(true);
 				FanButton.setEnabled(true);
 				BathButton.setEnabled(true);
@@ -149,7 +163,7 @@ public class MainActivity extends Activity {
 					admission = false;
 					lightButton.setEnabled(false);
 					coffeeButton.setEnabled(false);
-					temperatureButton.setEnabled(false);
+					MediaButton.setEnabled(false);
 					FanButton.setEnabled(false);
 					lightOutButton.setEnabled(false);
 					HeatingButton.setEnabled(false);
@@ -314,18 +328,16 @@ public class MainActivity extends Activity {
 				return false;
 			}
 		});
-		this.temperatureButton.setOnTouchListener(new View.OnTouchListener() {
+		this.MediaButton.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				if (event.getAction() == MotionEvent.ACTION_DOWN) {
-					temperatureButton
-							.setBackgroundResource(R.drawable.radiopress);
+					MediaButton.setBackgroundResource(R.drawable.radiopress);
 
 					return true;
 				} else if (event.getAction() == MotionEvent.ACTION_UP) {
-					temperatureButton.setBackgroundResource(R.drawable.radio);
+					MediaButton.setBackgroundResource(R.drawable.radio);
 					Intent intent = new Intent();
-					intent.setClass(MainActivity.this,
-							TemperatureInterface.class);
+					intent.setClass(MainActivity.this, MediaInterface.class);
 					MainActivity.this.startActivity(intent);
 					return true;
 				} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
@@ -340,35 +352,18 @@ public class MainActivity extends Activity {
 
 	}
 
-	// public Socket getConnection() {
-	//
-	// if(socket==null)
-	// {
-	// try {
-	// socket = new Socket("194.47.40.66", 8000);
-	// } catch (UnknownHostException e) {
-	// e.printStackTrace();
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// }
-	// return socket;
-	// }else{
-	// return socket;
-	// }
-	// }
-	//
-	// public BufferedReader getContent() throws IOException{
-	// Socket socket = getConnection();
-	// BufferedReader in = new BufferedReader(new
-	// InputStreamReader(socket.getInputStream()));
-	// return in;
-	// }
-	//
-	// public PrintWriter sendContent() throws IOException{
-	// Socket socket = getConnection();
-	// PrintWriter out = new PrintWriter(new
-	// OutputStreamWriter(socket.getOutputStream()));
-	// return out;
-	// }
+	public static void tempcheck() {
 
+		 if(admission==true)
+		 {
+		 String status=Connection.initStates;
+		 String devicestatus[]=status.split(",");
+		 String tempRoom=devicestatus[5];
+		 String temploft=devicestatus[6];
+		 String Roomvalue[]=tempRoom.split(":");
+		 String loftvalue[]=temploft.split(":");
+		 RoomTempValue.setText(Roomvalue[1]+"℃");
+		 LoftTempValue.setText(loftvalue[1]+"℃");
+		 }		
+	}
 }

@@ -13,34 +13,14 @@
             android:background="@drawable/back"
             android:onClick="BathbuttonBackClicked" />
 
-        <ImageView
-            android:id="@+id/Bath"
+
+        <Button
+            android:id="@+id/SwitchBathbutton"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/Bathbackbutton"
-            android:visibility="visible" />
-
-        <Button
-            android:id="@+id/Bathyesbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="18dp"
-            android:background="@drawable/fanok"
-            android:onClick="BathbuttonOnClicked" />
-
-        <Button
-            android:id="@+id/Bathnobutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/Bathyesbutton"
-            android:layout_alignBottom="@+id/Bathyesbutton"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="21dp"
-            android:background="@drawable/fanno"
-            android:onClick="BathbuttonOffClicked" />
+            android:onClick="BathbuttonClicked" />
 
     </RelativeLayout>
        

@@ -5,23 +5,23 @@
         android:background="@color/white" >
 
         <Button
-            android:id="@+id/Heatingbackbutton"
+            android:id="@+id/mediabackbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:background="@drawable/back"
-            android:onClick="HeatingbuttonBackClicked" />
+            android:onClick="buttonBackClicked" />
 
-        
+       
 
         <Button
-            android:id="@+id/SwitchHeatingbutton"
+            android:id="@+id/SwitchmeidaButton"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/Heatingbackbutton"
-            android:onClick="HeatingbuttonClicked" />
+            android:layout_below="@+id/mediabackbutton"
+            android:onClick="buttonmeidaClicked" />
 
     </RelativeLayout>
-       
+

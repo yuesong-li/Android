@@ -143,7 +143,7 @@
         android:drawableRight="@drawable/temicon"
         android:gravity="center"
         android:paddingLeft="8dip"
-        android:text="sensor"
+        android:text="Media"
         android:textColor="@android:color/white"
         android:textSize="20.0sp" />
 
@@ -190,5 +190,42 @@
         android:layout_above="@+id/Main_logInButton"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="35dp" />
+
+    <TextView
+        android:id="@+id/roomtemptv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Main_logInButton"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/menuview"
+        android:text="room temp is:" />
+
+    <TextView
+        android:id="@+id/lofttemptv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/roomtemptv"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/menuview"
+        android:text="loft temp is :" />
+
+    <TextView
+        android:id="@+id/lofttemptttvv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/lofttemptv"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/menuview"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/roomtempttvv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/roomtemptv"
+        android:layout_alignLeft="@+id/lofttemptttvv"
+        android:layout_alignParentRight="true"
+        android:text="" />
 
 </RelativeLayout>

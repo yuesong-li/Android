@@ -9,15 +9,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 public class LightInInterface extends Activity {
-	private Button onButton;
-	private Button offButton;
+	
 	private Button backButton;
-	static ImageView lightInIV;
+	static Button lightInIV;
 	private static String localStatus;
 
 	LoginInterface li = new LoginInterface();
 	Connection con = Connection.getConnection();
-
+	
+   static boolean lightInStatus =false;
 	boolean LoopStatus = true;
 	static boolean LIGHTIN = false;
 
@@ -25,9 +25,7 @@ public class LightInInterface extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.light);
-		lightInIV = (ImageView) findViewById(R.id.light);
-		onButton = (Button) this.findViewById(R.id.yesbutton);
-		offButton = (Button) this.findViewById(R.id.nobutton);
+		lightInIV = (Button) findViewById(R.id.SwitchlightInButton);
 		backButton = (Button) this.findViewById(R.id.lightbackbutton);
 		LightIncheck();
 		LIGHTIN = true;
@@ -38,62 +36,51 @@ public class LightInInterface extends Activity {
 		localStatus = Connection.initStates;
 		if (Connection.initStates.contains("lightIn:on")) {
 			lightInIV.setBackgroundResource(R.drawable.lighton);
+			lightInStatus=true;
+			
+			
 		} else {
 			lightInIV.setBackgroundResource(R.drawable.lightoff);
+			lightInStatus=false;
 		}
 
 	}
 
-	public void buttonOnClicked(View view) {
+	public void buttonlightInClicked(View view) {
 
+		if(lightInStatus==false)
+		{
 		con.setResult("lightIn:on");
-		// try{
-		// this.wait(2000);
-		// }catch(InterruptedException iex){
-		// iex.printStackTrace();
-		// }
-		// for (int i = 0; i < 100000; i++) {
-		// String s = i + "";
-		// }
 		String temp = Connection.initStates;
 		while (localStatus.equals(temp)) {
 			temp = Connection.initStates;
 		}
 		if (Connection.initStates.contains("lightIn:on")) {
 			lightInIV.setBackgroundResource(R.drawable.lighton);
-		} else {
-
-		}
-
-		con.UpdateForDeviceImages();
-		onButton.setVisibility(view.INVISIBLE);
-		offButton.setVisibility(view.VISIBLE);
-
-	}
-
-	public void buttonOffClicked(View view) {
-		// offButton.setBackgroundResource(R.drawable.fanok);
-		con.setResult("lightIn:off");
-		// try{
-		// this.wait(2000);
-		// }catch(InterruptedException iex){
-		// iex.printStackTrace();
-		// }
-		// for (int i = 0; i < 100000; i++) {
-		// String s = i + "";
-		// }
-		String temp = Connection.initStates;
-		while (localStatus.equals(temp)) {
-			temp = Connection.initStates;
-		}
-		if (Connection.initStates.contains("lightIn:off")) {
-			lightInIV.setBackgroundResource(R.drawable.lightoff);
+			lightInStatus=true;
 		} else {
 
 		}
 		con.UpdateForDeviceImages();
-		onButton.setVisibility(view.VISIBLE);
-		offButton.setVisibility(view.INVISIBLE);
+		
+		
+		}else{
+			
+			con.setResult("lightIn:off");
+			String temp = Connection.initStates;
+			while (localStatus.equals(temp)) {
+				temp = Connection.initStates;
+			}
+			if (Connection.initStates.contains("lightIn:off")) {
+				lightInIV.setBackgroundResource(R.drawable.lightoff);
+				lightInStatus=false;
+			} else {
+
+			}
+			con.UpdateForDeviceImages();
+			
+		}
+
 	}
 
 	public void buttonBackClicked(View view) {

@@ -8,22 +8,21 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 public class BathInterface extends Activity {
-	private Button BathonButton;
-	private Button BathoffButton;
+
 	private Button BathbackButton;
-	static ImageView BathIV;
+	static Button BathIV;
 	private static String localStatus;
 	boolean LoopStatus = true;
 
 	Connection con = Connection.getConnection();
     static boolean BATH =false;
+    static boolean BathStatus=false;
+    
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.bath);
-		BathIV = (ImageView) findViewById(R.id.Bath);
-		BathonButton = (Button) this.findViewById(R.id.Bathyesbutton);
-		BathoffButton = (Button) this.findViewById(R.id.Bathnobutton);
+		BathIV = (Button) findViewById(R.id.SwitchBathbutton);
 		BathbackButton = (Button) this.findViewById(R.id.Bathbackbutton);
 		Bathcheck();
 		BATH=true;
@@ -31,20 +30,22 @@ public class BathInterface extends Activity {
 	}
 
 	public static void Bathcheck() {
-		//String[] bathStatus = LoginInterface.initsmarthouse[7].trim().split(":");
 		localStatus = Connection.initStates;
 		if (Connection.initStates.contains("bath:on")) {
 			BathIV.setBackgroundResource(R.drawable.bathok);
+			BathStatus=true;
 		} else {
 			BathIV.setBackgroundResource(R.drawable.bathno);
+			BathStatus=false;
 		}
 
 	}
 
-	public void BathbuttonOnClicked(View view) {
+	public void BathbuttonClicked(View view) {
+		
+		if(BathStatus==false)
+		{
 		con.setResult("bath:on");
-		//Connection.initStates = con.getResult();
-		//
 		String temp = Connection.initStates;
 		while (localStatus.equals(temp)) {
 			temp = Connection.initStates;
@@ -52,34 +53,29 @@ public class BathInterface extends Activity {
 		if (Connection.initStates.contains("bath:on")) {
 
 			BathIV.setBackgroundResource(R.drawable.bathok);
+			BathStatus=true;
 
 		} else {
 
 		}
 		con.UpdateForDeviceImages();
-		
-		BathonButton.setVisibility(view.INVISIBLE);
-		BathoffButton.setVisibility(view.VISIBLE);
-	}
+		}else if(BathStatus==true)
+		{
+			con.setResult("bath:off");
+			String temp = Connection.initStates;
+			while (localStatus.equals(temp)) {
+				temp = Connection.initStates;
+			}
+			if (Connection.initStates.contains("bath:off")) {
 
-	public void BathbuttonOffClicked(View view) {
-		con.setResult("bath:off");
-		//Connection.initStates = con.getResult();
-		String temp = Connection.initStates;
-		while (localStatus.equals(temp)) {
-			temp = Connection.initStates;
+				BathIV.setBackgroundResource(R.drawable.bathno);
+				BathStatus=false;
+
+			} else {
+
+			}
+			con.UpdateForDeviceImages();
 		}
-		if (Connection.initStates.contains("bath:off")) {
-
-			BathIV.setBackgroundResource(R.drawable.bathno);
-
-		} else {
-
-		}
-		con.UpdateForDeviceImages();
-		BathoffButton.setVisibility(View.INVISIBLE);
-		BathonButton.setVisibility(View.VISIBLE);
-
 	}
 
 	public void BathbuttonBackClicked(View view) {
