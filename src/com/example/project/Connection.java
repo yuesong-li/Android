@@ -124,6 +124,9 @@ public class Connection {
 		if (HeatingInterface.HEATING == true) {
 			HeatingInterface.Heatingcheck();
 		}
+		if (LoftHeatingInterface.LoftHEATING == true) {
+			LoftHeatingInterface.LoftHeatingcheck();
+		}
 		if (LightInInterface.LIGHTIN == true) {
 			LightInInterface.LightIncheck();
 		}

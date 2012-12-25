@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
 	private RadioButton MediaButton = null;
 	private RadioButton lightOutButton = null;
 	private RadioButton HeatingButton = null;
-	private RadioButton StoveButton = null;
+	private RadioButton LoftHeatingButton = null;
 	private RadioButton FanButton = null;
 	private RadioButton DoorButton = null;
 	private RadioButton BathButton = null;
@@ -53,11 +53,12 @@ public class MainActivity extends Activity {
 		this.lightButton = (RadioButton) this.findViewById(R.id.btn_0);
 		this.FanButton = (RadioButton) this.findViewById(R.id.Fanmenu);
 		this.HeatingButton = (RadioButton) this.findViewById(R.id.Heatingmenu);
+		this.LoftHeatingButton = (RadioButton) this.findViewById(R.id.LoftHeating);
 		this.coffeeButton = (RadioButton) this.findViewById(R.id.btn_1);
 		this.MediaButton = (RadioButton) this.findViewById(R.id.btn_2);
 		this.loginButton = (Button) this.findViewById(R.id.Main_logInButton);
 		this.DoorButton = (RadioButton) this.findViewById(R.id.Doormenu);
-		this.StoveButton = (RadioButton) this.findViewById(R.id.Stovemenu);
+		
 		this.BathButton = (RadioButton) this.findViewById(R.id.Bathmenu);
 		this.RoomTemptv = (TextView) this.findViewById(R.id.roomtemptv);
 		this.LoftTemptv = (TextView) this.findViewById(R.id.lofttemptv);
@@ -79,9 +80,9 @@ public class MainActivity extends Activity {
 			MediaButton.setEnabled(false);
 			FanButton.setEnabled(false);
 			lightOutButton.setEnabled(false);
+			LoftHeatingButton.setEnabled(false);
 			HeatingButton.setEnabled(false);
-			DoorButton.setEnabled(false);
-			StoveButton.setEnabled(false);
+			DoorButton.setEnabled(false);			
 			BathButton.setEnabled(false);
 			loginButton.setText("Log In");
 
@@ -94,8 +95,8 @@ public class MainActivity extends Activity {
 				lightOutButton.setEnabled(true);
 				FanButton.setEnabled(true);
 				HeatingButton.setEnabled(true);
+				LoftHeatingButton.setEnabled(true);
 				DoorButton.setEnabled(true);
-				StoveButton.setEnabled(true);
 				BathButton.setEnabled(true);
 				loginButton.setText("Log Out");
 			} else if (accessLevel.equals("low")) {
@@ -109,8 +110,8 @@ public class MainActivity extends Activity {
 
 				// disable these interfaces for low-level user
 				coffeeButton.setEnabled(false);
-				StoveButton.setEnabled(false);
 				HeatingButton.setEnabled(false);
+				LoftHeatingButton.setEnabled(false);
 
 			} else {
 				admission = false;
@@ -168,7 +169,6 @@ public class MainActivity extends Activity {
 					lightOutButton.setEnabled(false);
 					HeatingButton.setEnabled(false);
 					DoorButton.setEnabled(false);
-					StoveButton.setEnabled(false);
 					BathButton.setEnabled(false);
 					loginButton.setText("Log In");
 				}
@@ -250,6 +250,24 @@ public class MainActivity extends Activity {
 				return false;
 			}
 		});
+		LoftHeatingButton.setOnTouchListener(new View.OnTouchListener() {
+			public boolean onTouch(View v, MotionEvent event) {
+				if (event.getAction() == MotionEvent.ACTION_DOWN) {
+					LoftHeatingButton.setBackgroundResource(R.drawable.radiopress);
+					return true;
+				} else if (event.getAction() == MotionEvent.ACTION_UP) {
+					LoftHeatingButton.setBackgroundResource(R.drawable.radio);
+					Intent intent = new Intent();
+					intent.setClass(MainActivity.this, LoftHeatingInterface.class);
+					MainActivity.this.startActivity(intent);
+					return true;
+				} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+
+					return true;
+				}
+				return false;
+			}
+		});
 
 		BathButton.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
@@ -288,25 +306,6 @@ public class MainActivity extends Activity {
 				return false;
 			}
 		});
-		StoveButton.setOnTouchListener(new View.OnTouchListener() {
-			public boolean onTouch(View v, MotionEvent event) {
-				if (event.getAction() == MotionEvent.ACTION_DOWN) {
-					StoveButton.setBackgroundResource(R.drawable.radiopress);
-					return true;
-				} else if (event.getAction() == MotionEvent.ACTION_UP) {
-					StoveButton.setBackgroundResource(R.drawable.radio);
-					Intent intent = new Intent();
-					intent.setClass(MainActivity.this, StoveInterface.class);
-					MainActivity.this.startActivity(intent);
-					return true;
-				} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-
-					return true;
-				}
-				return false;
-			}
-		});
-
 		this.coffeeButton.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 

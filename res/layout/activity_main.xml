@@ -20,6 +20,8 @@
         android:layout_height="30dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:layout_toLeftOf="@+id/lightOutmenu"
         android:background="@drawable/radio"
         android:button="@null"
@@ -29,10 +31,7 @@
         android:paddingLeft="20dip"
         android:text="In"
         android:textColor="@android:color/white"
-        android:textSize="20.0sp"
-        android:layout_marginBottom="5dp"
-         android:layout_marginTop="5dp"  
-           />
+        android:textSize="20.0sp" />
 
     <RadioButton
         android:id="@+id/lightOutmenu"
@@ -41,6 +40,8 @@
         android:layout_alignLeft="@+id/Main_logInButton"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/Main_logInButton"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/radio"
         android:button="@null"
         android:checked="true"
@@ -49,10 +50,7 @@
         android:paddingLeft="20dip"
         android:text="Out"
         android:textColor="@android:color/white"
-        android:textSize="20.0sp"
-        android:layout_marginBottom="5dp"
-         android:layout_marginTop="5dp" 
-         />
+        android:textSize="20.0sp" />
 
     <RadioButton
         android:id="@+id/Doormenu"
@@ -60,7 +58,10 @@
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/lightOutmenu"
+        android:layout_weight="1"
         android:background="@drawable/radio"
         android:button="@null"
         android:checked="true"
@@ -69,10 +70,7 @@
         android:paddingLeft="10dip"
         android:text="Door"
         android:textColor="@android:color/white"
-        android:textSize="20.0sp" 
-        android:layout_marginBottom="5dp"
-         android:layout_marginTop="5dp" 
-         android:layout_weight="1"/>
+        android:textSize="20.0sp" />
 
     <RadioButton
         android:id="@+id/btn_1"
@@ -80,6 +78,7 @@
         android:layout_height="30dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/btn_0"
+        android:layout_marginBottom="5dp"
         android:layout_toLeftOf="@+id/lightOutmenu"
         android:layout_weight="1"
         android:background="@drawable/radio"
@@ -89,10 +88,7 @@
         android:paddingLeft="14dip"
         android:text="coffee"
         android:textColor="@android:color/white"
-        android:textSize="20.0sp"
-          android:layout_marginBottom="5dp"
-      
-         />
+        android:textSize="20.0sp" />
 
     <RadioButton
         android:id="@+id/Bathmenu"
@@ -147,42 +143,6 @@
         android:textColor="@android:color/white"
         android:textSize="20.0sp" />
 
-    <RadioButton
-        android:id="@+id/Stovemenu"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignBaseline="@+id/btn_2"
-        android:layout_alignBottom="@+id/btn_2"
-        android:layout_alignLeft="@+id/Bathmenu"
-        android:layout_toLeftOf="@+id/Fanmenu"
-        android:background="@drawable/radio"
-        android:button="@null"
-        android:checked="true"
-        android:drawableRight="@drawable/stoveicon"
-        android:gravity="center"
-        android:paddingLeft="15dip"
-        android:text="Stove"
-        android:textColor="@android:color/white"
-        android:textSize="20.0sp" />
-
-    <RadioButton
-        android:id="@+id/Heatingmenu"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignBaseline="@+id/Stovemenu"
-        android:layout_alignBottom="@+id/Stovemenu"
-        android:layout_alignLeft="@+id/Fanmenu"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/radio"
-        android:button="@null"
-        android:checked="true"
-        android:drawableRight="@drawable/heatingicon"
-        android:gravity="center"
-        android:paddingLeft="10dip"
-        android:text="Heating"
-        android:textColor="@android:color/white"
-        android:textSize="20.0sp" />
-
     <ImageView
         android:id="@+id/menuview"
         android:layout_width="wrap_content"
@@ -227,5 +187,39 @@
         android:layout_alignLeft="@+id/lofttemptttvv"
         android:layout_alignParentRight="true"
         android:text="" />
+
+    <RadioButton
+        android:id="@+id/LoftHeating"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/btn_2"
+        android:layout_alignLeft="@+id/Bathmenu"
+        android:layout_alignRight="@+id/Bathmenu"
+        android:background="@drawable/radio"
+        android:button="@null"
+        android:checked="true"
+        android:drawableRight="@drawable/heatingicon"
+        android:gravity="center"
+        android:paddingLeft="15dip"
+        android:text="Loft"
+        android:textColor="@android:color/white"
+        android:textSize="20.0sp" />
+
+    <RadioButton
+        android:id="@+id/Heatingmenu"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignBottom="@+id/LoftHeating"
+        android:layout_alignLeft="@+id/Fanmenu"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/radio"
+        android:button="@null"
+        android:checked="true"
+        android:drawableRight="@drawable/heatingicon"
+        android:gravity="center"
+        android:paddingLeft="10dip"
+        android:text="Heating"
+        android:textColor="@android:color/white"
+        android:textSize="20.0sp" />
 
 </RelativeLayout>

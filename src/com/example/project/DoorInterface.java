@@ -10,106 +10,79 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 public class DoorInterface extends Activity {
-	private Button DooronButton;
-	private Button DooroffButton;
+
 	private Button DoorbackButton;
-	static ImageView DoorIV;
+	static Button DoorIV;
 	private static String localStatus;
-	boolean LoopStatus=true;
-	static boolean DOOR=false;
-	
+	boolean LoopStatus = true;
+
 	Connection con = Connection.getConnection();
+    static boolean DOOR =false;
+    static boolean DoorStatus=false;
+    
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.door);
-		DoorIV = (ImageView) findViewById(R.id.Door);
-		DooronButton = (Button) this.findViewById(R.id.Dooryesbutton);
-		DooroffButton = (Button) this.findViewById(R.id.Doornobutton);
+		DoorIV = (Button) findViewById(R.id.SwitchDoorButton);
 		DoorbackButton = (Button) this.findViewById(R.id.Doorbackbutton);
 		Doorcheck();
 		DOOR=true;
-	   
+
 	}
-	public static void Doorcheck(){
-		//String [] Doorint=LoginInterface.initsmarthouse[4].split(":");
+
+	public static void Doorcheck() {
 		localStatus = Connection.initStates;
-		if(Connection.initStates.contains("door:open"))
+		if (Connection.initStates.contains("door:unlocked")) {
+			DoorIV.setBackgroundResource(R.drawable.dooropen);
+			DoorStatus=true;
+		} else {
+			DoorIV.setBackgroundResource(R.drawable.doorclose);
+			DoorStatus=false;
+		}
+
+	}
+
+	public void DoorbuttonClicked(View view) {
+		
+		if(DoorStatus==false)
 		{
-			DoorIV.setBackgroundResource(R.drawable.dooropen);
-		}else{
-			DoorIV.setBackgroundResource(R.drawable.doorclose);
-		}
-	}
-	
-	public void DoorbuttonOnClicked(View view){
-		
-		con.setResult("door:open");
-		//Connection.initStates = con.getResult();
+		con.setResult("door:unlocked");
 		String temp = Connection.initStates;
 		while (localStatus.equals(temp)) {
 			temp = Connection.initStates;
 		}
-		
-		if (Connection.initStates.contains("door:open")) {
-
-			DoorIV.setBackgroundResource(R.drawable.dooropen);
-
-		} else {
-
-		}
-		
-		con.UpdateForDeviceImages();
-		DooronButton.setVisibility(view.INVISIBLE);
-		DooroffButton .setVisibility(view.VISIBLE);
-		
-	}
-	
-	public void DoorbuttonOffClicked(View view){
-		
-		con.setResult("door:close");
-		//Connection.initStates = con.getResult();
-		String temp = Connection.initStates;
-		while (localStatus.equals(temp)) {
-			temp = Connection.initStates;
-		}
-		if (Connection.initStates.contains("door:close")) {
+		if (Connection.initStates.contains("door:unlocked")) {
 
 			DoorIV.setBackgroundResource(R.drawable.doorclose);
+			DoorStatus=true;
 
 		} else {
 
 		}
-
 		con.UpdateForDeviceImages();
-		DooroffButton.setVisibility(view.INVISIBLE);
-		DooronButton.setVisibility(view.VISIBLE);		
+		}else if(DoorStatus==true)
+		{
+			con.setResult("door:locked");
+			String temp = Connection.initStates;
+			while (localStatus.equals(temp)) {
+				temp = Connection.initStates;
+			}
+			if (Connection.initStates.contains("door:locked")) {
+
+				DoorIV.setBackgroundResource(R.drawable.doorclose);
+				DoorStatus=false;
+
+			} else {
+
+			}
+			con.UpdateForDeviceImages();
+		}
 	}
-	
-	public void DoorbuttonBackClicked(View view){
+
+	public void DoorbuttonBackClicked(View view) {
 		Intent intent = new Intent();
 		intent.setClass(DoorInterface.this, MainActivity.class);
 		DoorInterface.this.startActivity(intent);
-
 	}
-
-	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0, 0, 0, "test");
-		menu.add(0, 1, 1, "Back");
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case 0:
-			System.out.println("this is test");
-			break;
-		case 1:
-			finish();
-			break;
-		default:
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
 }
