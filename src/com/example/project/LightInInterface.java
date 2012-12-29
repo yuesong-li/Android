@@ -1,12 +1,15 @@
 package com.example.project;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.app.AlertDialog;
+import android.app.Dialog;
 
 public class LightInInterface extends Activity {
 	
@@ -28,11 +31,18 @@ public class LightInInterface extends Activity {
 		lightInIV = (Button) findViewById(R.id.SwitchlightInButton);
 		backButton = (Button) this.findViewById(R.id.lightbackbutton);
 		LightIncheck();
+		if(Connection.initStates.contains("alarm"))
+		{
+			 Dialog alertDialog = new AlertDialog.Builder(this).
+		     setTitle("Alarm Reminder").
+		     setMessage("Alarm is on!!!!!!!!!!").
+             create();
+		     alertDialog.show();
+		}
 		LIGHTIN = true;
 	}
 
 	public static void LightIncheck() {
-		// String [] Lightint=LoginInterface.initsmarthouse[0].split(":");
 		localStatus = Connection.initStates;
 		if (Connection.initStates.contains("lightIn:on")) {
 			lightInIV.setBackgroundResource(R.drawable.lighton);

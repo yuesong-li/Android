@@ -13,34 +13,15 @@
             android:background="@drawable/back"
             android:onClick="FanbuttonBackClicked" />
 
-        <ImageView
-            android:id="@+id/Fan"
+        
+
+        <Button
+            android:id="@+id/SwitchFanbutton"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/Fanbackbutton"
-            android:visibility="visible" />
-
-        <Button
-            android:id="@+id/Fannobutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="32dp"
-            android:layout_marginLeft="22dp"
-            android:background="@drawable/fanok"
-            android:onClick="FanbuttonOffClicked" />
-
-        <Button
-            android:id="@+id/Fanyesbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/Fannobutton"
-            android:layout_alignBottom="@+id/Fannobutton"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/fanno"
-            android:onClick="FanbuttonOnClicked" />
+            android:onClick="FanbuttonClicked" />
 
     </RelativeLayout>
        
