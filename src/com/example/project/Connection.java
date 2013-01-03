@@ -27,7 +27,8 @@ public class Connection {
 
 	public static Connection getConnection() {
 		if (connection == null) {
-			synchronized (Connection.class) {
+			synchronized (Connection.class) 
+			{
 				if (connection == null) {
 					connection = new Connection();
 					try {
@@ -105,7 +106,18 @@ public class Connection {
 	}
 
 	public void closeSocket() throws Exception {
-		socket.close();
+		
+		
+//        this.notifyAll();
+//        in.close();
+//        out.close();
+////        socket.close();
+		Log.i("ZXCBNNM", "??????");
+	//	setResult("!");
+		Log.i("ZXCBNNM", "!");
+//        connection=null;
+//        socket=null;
+		
 	}
 
 	public void UpdateForDeviceImages() {

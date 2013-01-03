@@ -1,5 +1,7 @@
 package com.example.project;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ public class LoginInterface extends Activity {
 	public String UserName = "";
 	public String PassWord = "";
 
+	public static ArrayList<MyService> arr =null;
 	
 	// Connection con = Connection.getConnection();
 
@@ -77,7 +80,11 @@ public class LoginInterface extends Activity {
 						LoginInterface.this.startActivity(intent);
 						
 						MyService myservice = new MyService();
-						myservice.execute();
+						myservice.execute();			
+						arr=new ArrayList<MyService>();
+						arr.add(myservice);
+					
+						
 					}
 				} else {
 					// Toast toast = Toast.makeText(getApplicationContext(),
@@ -101,7 +108,7 @@ public class LoginInterface extends Activity {
 
 		this.BackButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
-		
+		        
 				Intent intent = new Intent();
 				intent.setClass(LoginInterface.this, MainActivity.class);
 				LoginInterface.this.startActivity(intent);

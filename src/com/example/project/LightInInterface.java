@@ -31,14 +31,6 @@ public class LightInInterface extends Activity {
 		lightInIV = (Button) findViewById(R.id.SwitchlightInButton);
 		backButton = (Button) this.findViewById(R.id.lightbackbutton);
 		LightIncheck();
-		if(Connection.initStates.contains("alarm"))
-		{
-			 Dialog alertDialog = new AlertDialog.Builder(this).
-		     setTitle("Alarm Reminder").
-		     setMessage("Alarm is on!!!!!!!!!!").
-             create();
-		     alertDialog.show();
-		}
 		LIGHTIN = true;
 	}
 

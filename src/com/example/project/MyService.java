@@ -10,23 +10,24 @@ import android.util.Log;
 
 public class MyService extends AsyncTask<Void, Void, String> {
 
-	private Socket socket = null;
+	private static Socket ssocket = null;
 	private BufferedReader br = null;
+	
 	// private String receivedUpdate = "";
 	private final String TAG = "MYSERVICE";
 	private Connection conn;
 
 	public MyService() {
 		conn = Connection.getConnection();
-		socket = conn.socket;
+		ssocket = conn.socket;
 		try {
 			br = new BufferedReader(new InputStreamReader(
-					socket.getInputStream()), 8192);
+					ssocket.getInputStream()), 8192);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Log.i(TAG, "Service is running on local port: " + socket.getLocalPort()
-				+ socket.getRemoteSocketAddress());
+		Log.i(TAG, "Service is running on local port: " + ssocket.getLocalPort()
+				+ ssocket.getRemoteSocketAddress());
 	}
 
 	@Override
@@ -50,7 +51,9 @@ public class MyService extends AsyncTask<Void, Void, String> {
 
 	public void handleUpdate(String update) {
 		Log.i(TAG, "Received Update: " + update);
-		conn.initStates = update;
+		conn.initStates = update;	
 		//conn.UpdateForDeviceImages();
 	}
+	
+	
 }

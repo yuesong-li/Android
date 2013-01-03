@@ -43,6 +43,7 @@ public class MainActivity extends Activity {
 	private ImageView image;
 	AnimationDrawable animationDrawable;
 	Connection con = null;
+	public static boolean loginaccess=false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -124,6 +125,8 @@ public class MainActivity extends Activity {
 					animationDrawable.start();
 				}
 			});
+			if(loginaccess==false)
+			{
 			Toast toast = Toast.makeText(getApplicationContext(),
 					"You can control the house!", Toast.LENGTH_SHORT);
 			ImageView img = new ImageView(getApplicationContext());
@@ -135,6 +138,8 @@ public class MainActivity extends Activity {
 			linear.addView(toastview);
 			toast.setView(linear);
 			toast.show();
+			loginaccess=true;
+			}
 
 		}
 		this.loginButton.setOnClickListener(new OnClickListener() {
@@ -157,7 +162,12 @@ public class MainActivity extends Activity {
 						}
 					});
 					try {
-						con.closeSocket();
+						  MyService ms=LoginInterface.arr.get(0);
+						 // ms.cancel(true);
+						  LoginInterface.arr.clear();
+						  con.closeSocket();
+						  Log.i("AAAAAAAA", "Has been logout");
+						 // con.closeSocket();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
