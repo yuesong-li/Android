@@ -13,33 +13,14 @@
             android:background="@drawable/back"
             android:onClick="CoffeebuttonBackClicked" />
 
-        <ImageView
-            android:id="@+id/Coffee"
+
+        <Button
+            android:id="@+id/SwitchCoffeebutton"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/Coffeebackbutton" />
-
-        <Button
-            android:id="@+id/Coffeeyesbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="35dp"
-            android:layout_marginLeft="19dp"
-            android:background="@drawable/fanok"
-            android:onClick="CoffeebuttonOnClicked" />
-
-        <Button
-            android:id="@+id/Coffeenobutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/Coffeeyesbutton"
-            android:layout_alignBottom="@+id/Coffeeyesbutton"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/Coffeebackbutton" 
             android:layout_alignParentRight="true"
-            android:background="@drawable/fanno"
-            android:onClick="CoffeebuttonOffClicked" />
+            android:onClick="CoffeebuttonClicked" />
 
     </RelativeLayout>
        

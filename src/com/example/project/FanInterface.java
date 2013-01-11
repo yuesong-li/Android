@@ -30,10 +30,10 @@ public class FanInterface extends Activity {
 		localStatus = Connection.initStates;
 		if(Connection.initStates.contains("fan:on"))
 		{
-			FanIV.setBackgroundResource(R.drawable.fanopen);
+			FanIV.setBackgroundResource(R.drawable.newfanopen);
 			FanStatus=true;
 		}else{
-			FanIV.setBackgroundResource(R.drawable.fanclose);
+			FanIV.setBackgroundResource(R.drawable.newfanclose);
 			FanStatus=false;
 		}
 	}
@@ -49,7 +49,7 @@ public class FanInterface extends Activity {
 		}
 		if (Connection.initStates.contains("fan:on")) {
 
-			FanIV.setBackgroundResource(R.drawable.fanopen);
+			FanIV.setBackgroundResource(R.drawable.newfanopen);
 			FanStatus=true;
 
 		} else {
@@ -67,7 +67,7 @@ public class FanInterface extends Activity {
 			}
 			if (Connection.initStates.contains("fan:off")) {
 
-				FanIV.setBackgroundResource(R.drawable.fanclose);
+				FanIV.setBackgroundResource(R.drawable.newfanclose);
 				FanStatus=false;
 
 			} else {

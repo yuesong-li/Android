@@ -37,7 +37,7 @@ public class LoginInterface extends Activity {
 		setContentView(R.layout.login);
 
 		this.LoginButton = (Button) this.findViewById(R.id.Login_button);
-		this.BackButton = (Button) this.findViewById(R.id.Login_Backbutton);
+	
 
 		this.UserNameField = (EditText) this
 				.findViewById(R.id.Login_UserNameet);
@@ -106,14 +106,7 @@ public class LoginInterface extends Activity {
 			}
 		});
 
-		this.BackButton.setOnClickListener(new OnClickListener() {
-			public void onClick(View arg0) {
-		        
-				Intent intent = new Intent();
-				intent.setClass(LoginInterface.this, MainActivity.class);
-				LoginInterface.this.startActivity(intent);
-			}
-		});
+	
 	}
 
 }

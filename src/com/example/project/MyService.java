@@ -16,7 +16,7 @@ public class MyService extends AsyncTask<Void, Void, String> {
 	// private String receivedUpdate = "";
 	private final String TAG = "MYSERVICE";
 	private Connection conn;
-
+    static boolean run =true;
 	public MyService() {
 		conn = Connection.getConnection();
 		ssocket = conn.socket;
@@ -32,12 +32,17 @@ public class MyService extends AsyncTask<Void, Void, String> {
 
 	@Override
 	protected String doInBackground(Void... params) {
-		listenForUpdate();
+		try {
+			listenForUpdate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 
-	public void listenForUpdate() {
-		while (true) {
+	public void listenForUpdate() throws Exception {
+		while (run) {
 			try {
 				Log.i(TAG, "im in listen for update!");
 				String msg = br.readLine();
@@ -47,6 +52,7 @@ public class MyService extends AsyncTask<Void, Void, String> {
 				e.printStackTrace();
 			}
 		}
+		
 	}
 
 	public void handleUpdate(String update) {

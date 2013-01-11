@@ -32,10 +32,10 @@ public class BathInterface extends Activity {
 	public static void Bathcheck() {
 		localStatus = Connection.initStates;
 		if (Connection.initStates.contains("bath:on")) {
-			BathIV.setBackgroundResource(R.drawable.bathok);
+			BathIV.setBackgroundResource(R.drawable.newbathopen);
 			BathStatus=true;
 		} else {
-			BathIV.setBackgroundResource(R.drawable.bathno);
+			BathIV.setBackgroundResource(R.drawable.newbathclose);
 			BathStatus=false;
 		}
 
@@ -52,7 +52,7 @@ public class BathInterface extends Activity {
 		}
 		if (Connection.initStates.contains("bath:on")) {
 
-			BathIV.setBackgroundResource(R.drawable.bathok);
+			BathIV.setBackgroundResource(R.drawable.newbathopen);
 			BathStatus=true;
 
 		} else {
@@ -68,7 +68,7 @@ public class BathInterface extends Activity {
 			}
 			if (Connection.initStates.contains("bath:off")) {
 
-				BathIV.setBackgroundResource(R.drawable.bathno);
+				BathIV.setBackgroundResource(R.drawable.newbathclose);
 				BathStatus=false;
 
 			} else {

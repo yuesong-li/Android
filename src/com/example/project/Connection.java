@@ -16,7 +16,7 @@ public class Connection {
 	static Socket socket = null;
 	static BufferedReader in = null;
 	static PrintWriter out = null;
-	static String serverAddr = "194.47.40.108";// "169.254.220.37";
+	static String serverAddr = "169.254.220.37";// "169.254.220.37";
 	static int port = 8888;
 	private static Connection connection = null;// new Connection();
 	private final String TAG = "CONNECTION";
@@ -105,17 +105,18 @@ public class Connection {
 		return msgFromServer;
 	}
 
-	public void closeSocket() throws Exception {
+	public static void closeSocket() throws Exception {
 		
 		
-//        this.notifyAll();
-//        in.close();
-//        out.close();
-////        socket.close();
+        //  notifyAll();
+        in.close();
+        out.close();
+        socket.close();
+        socket=null;
 		Log.i("ZXCBNNM", "??????");
-	//	setResult("!");
 		Log.i("ZXCBNNM", "!");
-//        connection=null;
+        connection=null;
+        Log.i("ZXCBNNM", "&&&&&");
 //        socket=null;
 		
 	}

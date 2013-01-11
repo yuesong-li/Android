@@ -29,10 +29,11 @@
         <activity android:name="CoffeeInterface" />
         <activity android:name=".LightInInterface" />
         <activity android:name="LightOutInterface" />
-        <activity android:name="TemperatureInterface" />
+        <activity android:name=".MediaInterface" />
         <activity android:name="LoginInterface" />
         <activity android:name="FanInterface" />
         <activity android:name="HeatingInterface" />
+        <activity android:name="LoftHeatingInterface" />
         <activity android:name="DoorInterface" />
         <activity android:name="StoveInterface" />
         <activity android:name="BathInterface" />

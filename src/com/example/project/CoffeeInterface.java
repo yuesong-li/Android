@@ -8,21 +8,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 public class CoffeeInterface extends Activity {
-	private Button CoffeeonButton;
-	private Button CoffeeoffButton;
 	private Button CoffeebackButton;
-	static ImageView CoffeeIV;
+	static Button CoffeeIV;
 	private static String localStatus;
 	Connection con = Connection.getConnection();
 	static boolean COFFEE=false;
 	boolean LoopStatus=true;
+	static boolean CoffeeStatus =false;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.coffee);
-		CoffeeIV = (ImageView) findViewById(R.id.Coffee);
-		CoffeeonButton = (Button) this.findViewById(R.id.Coffeeyesbutton);
-		CoffeeoffButton = (Button) this.findViewById(R.id.Coffeenobutton);
+		CoffeeIV = (Button) findViewById(R.id.SwitchCoffeebutton);
 		CoffeebackButton = (Button) this.findViewById(R.id.Coffeebackbutton);
 
 		Coffeecheck();
@@ -33,52 +30,49 @@ public class CoffeeInterface extends Activity {
 		localStatus = Connection.initStates;
 		if(Connection.initStates.contains("coffee:on"))
 		{
-			CoffeeIV.setBackgroundResource(R.drawable.coffeeyes);
+			CoffeeIV.setBackgroundResource(R.drawable.coffeeon);
+			CoffeeStatus=true;
 		}else{
-			CoffeeIV.setBackgroundResource(R.drawable.coffeeno);
+			CoffeeIV.setBackgroundResource(R.drawable.coffeeoff);
+			CoffeeStatus=false;
 		}
 
 	}
-	
-	public void CoffeebuttonOnClicked(View view){
+	public void CoffeebuttonClicked(View view){
+
+		if(CoffeeStatus==false)
+		{
 		con.setResult("coffee:on");
-		//Connection.initStates = con.getResult();
 		String temp = Connection.initStates;
 		while (localStatus.equals(temp)) {
 			temp = Connection.initStates;
 		}
 		if (Connection.initStates.contains("coffee:on")) {
-
-			CoffeeIV.setBackgroundResource(R.drawable.coffeeyes);
-
+			CoffeeIV.setBackgroundResource(R.drawable.coffeeon);
+			CoffeeStatus=true;
 		} else {
 
 		}
-		
 		con.UpdateForDeviceImages();
-		CoffeeonButton.setVisibility(view.INVISIBLE);
-		CoffeeoffButton.setVisibility(view.VISIBLE);
 		
-	}
-	
-	public void CoffeebuttonOffClicked(View view){
-		con.setResult("coffee:off");
-		//Connection.initStates = con.getResult();
-		String temp = Connection.initStates;
-		while (localStatus.equals(temp)) {
-			temp = Connection.initStates;
-		}
-		if (Connection.initStates.contains("coffee:off")) {
-
-			CoffeeIV.setBackgroundResource(R.drawable.coffeeno);
-
-		} else {
-
-		}
 		
-		con.UpdateForDeviceImages();
-		CoffeeoffButton.setVisibility(view.INVISIBLE);
-		CoffeeonButton.setVisibility(view.VISIBLE);
+		}else{
+			
+			con.setResult("coffee:off");
+			String temp = Connection.initStates;
+			while (localStatus.equals(temp)) {
+				temp = Connection.initStates;
+			}
+			if (Connection.initStates.contains("coffee:off")) {
+				CoffeeIV.setBackgroundResource(R.drawable.coffeeoff);
+				CoffeeStatus=false;
+			} else {
+
+			}
+			con.UpdateForDeviceImages();
+			
+		}
+
 	}
 	
 	public void CoffeebuttonBackClicked(View view){

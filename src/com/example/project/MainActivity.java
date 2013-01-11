@@ -31,6 +31,8 @@ public class MainActivity extends Activity {
 	private RadioButton DoorButton = null;
 	private RadioButton BathButton = null;
 	public Button loginButton = null;
+	public Button RefreshTempButton=null;
+
 
 	public static TextView RoomTemptv = null;
 	public static TextView LoftTemptv = null;
@@ -65,16 +67,8 @@ public class MainActivity extends Activity {
 		this.LoftTemptv = (TextView) this.findViewById(R.id.lofttemptv);
 		this.RoomTempValue=(TextView)this.findViewById(R.id.roomtempttvv);
 		this.LoftTempValue=(TextView)this.findViewById(R.id.lofttemptttvv);
+		this.RefreshTempButton=(Button)this.findViewById(R.id.RefreshtempButton);
 		tempcheck();
-		image = (ImageView) findViewById(R.id.menuview);
-		image.setBackgroundResource(R.drawable.animation);
-		animationDrawable = (AnimationDrawable) image.getBackground();
-		image.post(new Runnable() {
-			public void run() {
-				animationDrawable.start();
-			}
-		});
-
 		if (admission == false) {
 			lightButton.setEnabled(false);
 			coffeeButton.setEnabled(false);
@@ -85,6 +79,25 @@ public class MainActivity extends Activity {
 			HeatingButton.setEnabled(false);
 			DoorButton.setEnabled(false);			
 			BathButton.setEnabled(false);
+			RefreshTempButton.setEnabled(false);
+			
+			
+			lightButton.setVisibility(-1);
+			coffeeButton.setVisibility(-1);
+			MediaButton.setVisibility(-1);
+			FanButton.setVisibility(-1);
+			lightOutButton.setVisibility(-1);
+			LoftHeatingButton.setVisibility(-1);
+			HeatingButton.setVisibility(-1);
+			DoorButton.setVisibility(-1);			
+			BathButton.setVisibility(-1);
+			RefreshTempButton.setVisibility(-1);
+			
+		    this.RoomTemptv.setVisibility(-1);
+	        this.LoftTemptv.setVisibility(-1); 
+			this.RoomTempValue.setVisibility(-1);
+			this.LoftTempValue.setVisibility(-1);
+
 			loginButton.setText("Log In");
 
 		} else {
@@ -99,6 +112,25 @@ public class MainActivity extends Activity {
 				LoftHeatingButton.setEnabled(true);
 				DoorButton.setEnabled(true);
 				BathButton.setEnabled(true);
+				RefreshTempButton.setEnabled(true);
+				
+				lightButton.setVisibility(0);
+				coffeeButton.setVisibility(0);
+				MediaButton.setVisibility(0);
+				FanButton.setVisibility(0);
+				lightOutButton.setVisibility(0);
+				LoftHeatingButton.setVisibility(0);
+				HeatingButton.setVisibility(0);
+				DoorButton.setVisibility(0);			
+				BathButton.setVisibility(0);
+				RefreshTempButton.setVisibility(0);
+				
+			    this.RoomTemptv.setVisibility(0);
+		        this.LoftTemptv.setVisibility(0); 
+				this.RoomTempValue.setVisibility(0);
+				this.LoftTempValue.setVisibility(0);
+
+
 				loginButton.setText("Log Out");
 			} else if (accessLevel.equals("low")) {
 				lightButton.setEnabled(true);
@@ -107,24 +139,37 @@ public class MainActivity extends Activity {
 				FanButton.setEnabled(true);
 				BathButton.setEnabled(true);
 				DoorButton.setEnabled(true);
+				RefreshTempButton.setEnabled(true);
+				
+				lightButton.setVisibility(0);
+				coffeeButton.setVisibility(0);
+				MediaButton.setVisibility(0);
+				FanButton.setVisibility(0);
+				lightOutButton.setVisibility(0);
+				LoftHeatingButton.setVisibility(0);
+				HeatingButton.setVisibility(0);
+				DoorButton.setVisibility(0);			
+				BathButton.setVisibility(0);
+				RefreshTempButton.setVisibility(0);
+				
+			    this.RoomTemptv.setVisibility(0);
+		        this.LoftTemptv.setVisibility(0); 
+				this.RoomTempValue.setVisibility(0);
+				this.LoftTempValue.setVisibility(0);
+				
 				loginButton.setText("Log Out");
 
 				// disable these interfaces for low-level user
 				coffeeButton.setEnabled(false);
 				HeatingButton.setEnabled(false);
 				LoftHeatingButton.setEnabled(false);
+				
+				
+
 
 			} else {
 				admission = false;
 			}
-
-			image.setBackgroundResource(R.drawable.animation);
-			animationDrawable = (AnimationDrawable) image.getBackground();
-			image.post(new Runnable() {
-				public void run() {
-					animationDrawable.start();
-				}
-			});
 			if(loginaccess==false)
 			{
 			Toast toast = Toast.makeText(getApplicationContext(),
@@ -152,22 +197,13 @@ public class MainActivity extends Activity {
 					MainActivity.this.startActivity(intent);
 
 				} else if (loginButton.getText().toString().equals("Log Out")) {
-					image = (ImageView) findViewById(R.id.menuview);
-					image.setBackgroundResource(R.drawable.animation);
-					animationDrawable = (AnimationDrawable) image
-							.getBackground();
-					image.post(new Runnable() {
-						public void run() {
-							animationDrawable.start();
-						}
-					});
 					try {
-						  MyService ms=LoginInterface.arr.get(0);
-						 // ms.cancel(true);
-						  LoginInterface.arr.clear();
+						  MyService ms=LoginInterface.arr.get(0);		
+						  ms.cancel(true);
+						  MyService.run=false;
+						  LoginInterface.arr.clear();						
 						  con.closeSocket();
-						  Log.i("AAAAAAAA", "Has been logout");
-						 // con.closeSocket();
+						  MyService.run=true;  
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -180,6 +216,9 @@ public class MainActivity extends Activity {
 					HeatingButton.setEnabled(false);
 					DoorButton.setEnabled(false);
 					BathButton.setEnabled(false);
+					RefreshTempButton.setEnabled(false);
+					
+					
 					loginButton.setText("Log In");
 				}
 			}
@@ -358,6 +397,26 @@ public class MainActivity extends Activity {
 			}
 
 		});
+		
+		this.RefreshTempButton.setOnClickListener(new OnClickListener(){
+
+			public void onClick(View v) {
+				 Connection con = Connection.getConnection();
+				 con.setResult("temp");
+				 String status=Connection.initStates;
+				 String devicestatus[]=status.split(",");
+				 String tempRoom=devicestatus[6];
+				 String temploft=devicestatus[5];
+				 String Roomvalue[]=tempRoom.split(":");
+				 String loftvalue[]=temploft.split(":");
+				 RoomTempValue.setText(Roomvalue[1]+"℃");
+				 LoftTempValue.setText(loftvalue[1]+"℃");
+				
+				
+			}
+			
+			
+		});
 
 	}
 
@@ -367,8 +426,8 @@ public class MainActivity extends Activity {
 		 {
 		 String status=Connection.initStates;
 		 String devicestatus[]=status.split(",");
-		 String tempRoom=devicestatus[5];
-		 String temploft=devicestatus[6];
+		 String temploft=devicestatus[5];
+		 String tempRoom=devicestatus[6];
 		 String Roomvalue[]=tempRoom.split(":");
 		 String loftvalue[]=temploft.split(":");
 		 RoomTempValue.setText(Roomvalue[1]+"℃");

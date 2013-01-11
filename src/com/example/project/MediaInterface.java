@@ -30,12 +30,12 @@ public class MediaInterface  extends Activity{
 		// String [] Lightint=LoginInterface.initsmarthouse[0].split(":");
 		localStatus = Connection.initStates;
 		if (Connection.initStates.contains("media:on")) {
-			mediaIV.setBackgroundResource(R.drawable.music);
+			mediaIV.setBackgroundResource(R.drawable.musicplay);
 			mediaStatus=true;
 			
 			
 		} else {
-			mediaIV.setBackgroundResource(R.drawable.musicoff);
+			mediaIV.setBackgroundResource(R.drawable.musistop);
 			mediaStatus=false;
 		}
 
@@ -51,7 +51,7 @@ public class MediaInterface  extends Activity{
 			temp = Connection.initStates;
 		}
 		if (Connection.initStates.contains("media:on")) {
-			mediaIV.setBackgroundResource(R.drawable.music);
+			mediaIV.setBackgroundResource(R.drawable.musicplay);
 			mediaStatus=true;
 		} else {
 			
@@ -65,7 +65,7 @@ public class MediaInterface  extends Activity{
 				temp = Connection.initStates;
 			}
 			if (Connection.initStates.contains("media:off")) {
-				mediaIV.setBackgroundResource(R.drawable.musicoff);
+				mediaIV.setBackgroundResource(R.drawable.musistop);
 				mediaStatus=false;
 			} else {
 			}

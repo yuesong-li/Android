@@ -1,147 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/menu" >
-
-    <Button
-        android:id="@+id/Main_logInButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="22dp"
-        android:background="@drawable/loginmain"
-        android:textColor="@android:color/black" />
-
-    <RadioButton
-        android:id="@+id/btn_0"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_toLeftOf="@+id/lightOutmenu"
-        android:background="@drawable/radio"
-        android:button="@null"
-        android:checked="true"
-        android:drawableRight="@drawable/lighticon"
-        android:gravity="center"
-        android:paddingLeft="20dip"
-        android:text="In"
-        android:textColor="@android:color/white"
-        android:textSize="20.0sp" />
-
-    <RadioButton
-        android:id="@+id/lightOutmenu"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignLeft="@+id/Main_logInButton"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/Main_logInButton"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/radio"
-        android:button="@null"
-        android:checked="true"
-        android:drawableRight="@drawable/lighticon"
-        android:gravity="center"
-        android:paddingLeft="20dip"
-        android:text="Out"
-        android:textColor="@android:color/white"
-        android:textSize="20.0sp" />
-
-    <RadioButton
-        android:id="@+id/Doormenu"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_toRightOf="@+id/lightOutmenu"
-        android:layout_weight="1"
-        android:background="@drawable/radio"
-        android:button="@null"
-        android:checked="true"
-        android:drawableRight="@drawable/dooricon"
-        android:gravity="center"
-        android:paddingLeft="10dip"
-        android:text="Door"
-        android:textColor="@android:color/white"
-        android:textSize="20.0sp" />
-
-    <RadioButton
-        android:id="@+id/btn_1"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/btn_0"
-        android:layout_marginBottom="5dp"
-        android:layout_toLeftOf="@+id/lightOutmenu"
-        android:layout_weight="1"
-        android:background="@drawable/radio"
-        android:button="@null"
-        android:drawableRight="@drawable/coffeeicon"
-        android:gravity="center"
-        android:paddingLeft="14dip"
-        android:text="coffee"
-        android:textColor="@android:color/white"
-        android:textSize="20.0sp" />
-
-    <RadioButton
-        android:id="@+id/Bathmenu"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignBaseline="@+id/btn_1"
-        android:layout_alignBottom="@+id/btn_1"
-        android:layout_alignLeft="@+id/lightOutmenu"
-        android:layout_alignRight="@+id/lightOutmenu"
-        android:background="@drawable/radio"
-        android:button="@null"
-        android:checked="true"
-        android:drawableRight="@drawable/bathicon"
-        android:gravity="center"
-        android:paddingLeft="17dip"
-        android:text="Bath"
-        android:textColor="@android:color/white"
-        android:textSize="20.0sp" />
-
-    <RadioButton
-        android:id="@+id/Fanmenu"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignBaseline="@+id/Bathmenu"
-        android:layout_alignBottom="@+id/Bathmenu"
-        android:layout_alignLeft="@+id/Doormenu"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/radio"
-        android:button="@null"
-        android:checked="true"
-        android:drawableRight="@drawable/fanicon"
-        android:gravity="center"
-        android:paddingLeft="19dip"
-        android:text="Fan"
-        android:textColor="@android:color/white"
-        android:textSize="20.0sp" />
-
-    <RadioButton
-        android:id="@+id/btn_2"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/btn_1"
-        android:layout_toLeftOf="@+id/Bathmenu"
-        android:layout_weight="1"
-        android:background="@drawable/radio"
-        android:button="@null"
-        android:drawableRight="@drawable/temicon"
-        android:gravity="center"
-        android:paddingLeft="8dip"
-        android:text="Media"
-        android:textColor="@android:color/white"
-        android:textSize="20.0sp" />
+    android:background="@drawable/backmian" >
 
     <ImageView
         android:id="@+id/menuview"
@@ -152,74 +14,184 @@
         android:layout_marginBottom="35dp" />
 
     <TextView
+        android:id="@+id/lofttemptttvv"
+        android:layout_width="86dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_x="106dp"
+        android:layout_y="2dp"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/roomtempttvv"
+        android:layout_width="84dp"
+        android:layout_height="wrap_content"
+        android:layout_x="103dp"
+        android:layout_y="21dp"
+        android:text=" " />
+
+    <ImageButton
+        android:id="@+id/logobutton"
+        android:layout_width="172dp"
+        android:layout_height="88dp"
+        android:layout_x="72dp"
+        android:layout_y="242dp"
+        android:background="@drawable/logo2" />
+
+    <RadioButton
+        android:id="@+id/Bathmenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="21dp"
+        android:layout_x="30dp"
+        android:layout_y="189dp"
+        android:background="@drawable/radio"
+        android:button="@null"
+        android:checked="true"
+        android:drawableLeft="@drawable/bathicon"
+        android:gravity="center"
+        android:paddingLeft="14dip" />
+
+    <RadioButton
+        android:id="@+id/btn_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_weight="1"
+        android:layout_x="3dp"
+        android:layout_y="264dp"
+        android:background="@drawable/radio"
+        android:button="@null"
+        android:drawableLeft="@drawable/music"
+        android:gravity="center"
+        android:paddingLeft="14dip" />
+
+    <RadioButton
+        android:id="@+id/Heatingmenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="257dp"
+        android:layout_y="228dp"
+        android:background="@drawable/radio"
+        android:button="@null"
+        android:checked="true"
+        android:drawableLeft="@drawable/heatingicon"
+        android:gravity="center"
+        android:paddingLeft="14dip" />
+
+    <RadioButton
+        android:id="@+id/btn_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="139dp"
+        android:layout_weight="1"
+        android:layout_x="30dp"
+        android:layout_y="340dp"
+        android:background="@drawable/radio"
+        android:button="@null"
+        android:drawableLeft="@drawable/coffeeicon"
+        android:gravity="center"
+        android:paddingLeft="14dip" />
+
+    <RadioButton
+        android:id="@+id/lightOutmenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="257dp"
+        android:layout_y="310dp"
+        android:background="@drawable/radio"
+        android:button="@null"
+        android:checked="true"
+        android:drawableLeft="@drawable/outdoorlight"
+        android:gravity="center"
+        android:paddingLeft="14dip" />
+
+    <RadioButton
+        android:id="@+id/Doormenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_x="111dp"
+        android:layout_y="148dp"
+        android:background="@drawable/radio"
+        android:button="@null"
+        android:checked="true"
+        android:drawableLeft="@drawable/dooricon"
+        android:gravity="center"
+        android:paddingLeft="14dip" />
+
+    <RadioButton
+        android:id="@+id/Fanmenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="207dp"
+        android:layout_y="165dp"
+        android:background="@drawable/radio"
+        android:button="@null"
+        android:checked="true"
+        android:drawableLeft="@drawable/fanicon"
+        android:gravity="center"
+        android:paddingLeft="14dip" />
+
+    <RadioButton
+        android:id="@+id/btn_0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp"
+        android:layout_x="108dp"
+        android:layout_y="387dp"
+        android:background="@drawable/radio"
+        android:button="@null"
+        android:checked="true"
+        android:drawableLeft="@drawable/indoorlight"
+        android:gravity="center"
+        android:paddingLeft="14dip" />
+
+    <RadioButton
+        android:id="@+id/LoftHeating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="193dp"
+        android:layout_y="375dp"
+        android:background="@drawable/radio"
+        android:button="@null"
+        android:checked="true"
+        android:drawableLeft="@drawable/lofticon"
+        android:gravity="center"
+        android:paddingLeft="14dip" />
+
+    <TextView
         android:id="@+id/roomtemptv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/Main_logInButton"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/menuview"
-        android:text="room temp is:" />
+        android:layout_x="49dp"
+        android:layout_y="2dp"
+        android:text="ROOM :" />
 
     <TextView
         android:id="@+id/lofttemptv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/roomtemptv"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/menuview"
-        android:text="loft temp is :" />
+        android:layout_x="51dp"
+        android:layout_y="22dp"
+        android:text=" LOFT   :  " />
 
-    <TextView
-        android:id="@+id/lofttemptttvv"
+    <Button
+        android:id="@+id/RefreshtempButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/lofttemptv"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="15dp"
-        android:layout_toRightOf="@+id/menuview"
-        android:text="" />
+        android:layout_x="6dp"
+        android:layout_y="0dp"
+        android:background="@drawable/ic_menu_refresh" />
 
-    <TextView
-        android:id="@+id/roomtempttvv"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/Main_logInButton"
+        android:layout_width="86dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/roomtemptv"
-        android:layout_alignLeft="@+id/lofttemptttvv"
-        android:layout_alignParentRight="true"
-        android:text="" />
+        android:layout_marginBottom="22dp"
+        android:layout_x="230dp"
+        android:layout_y="5dp"
+        android:background="@drawable/loginmain"
+        android:textColor="@android:color/black" />
 
-    <RadioButton
-        android:id="@+id/LoftHeating"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignBottom="@+id/btn_2"
-        android:layout_alignLeft="@+id/Bathmenu"
-        android:layout_alignRight="@+id/Bathmenu"
-        android:background="@drawable/radio"
-        android:button="@null"
-        android:checked="true"
-        android:drawableRight="@drawable/heatingicon"
-        android:gravity="center"
-        android:paddingLeft="15dip"
-        android:text="Loft"
-        android:textColor="@android:color/white"
-        android:textSize="20.0sp" />
-
-    <RadioButton
-        android:id="@+id/Heatingmenu"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignBottom="@+id/LoftHeating"
-        android:layout_alignLeft="@+id/Fanmenu"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/radio"
-        android:button="@null"
-        android:checked="true"
-        android:drawableRight="@drawable/heatingicon"
-        android:gravity="center"
-        android:paddingLeft="10dip"
-        android:text="Heating"
-        android:textColor="@android:color/white"
-        android:textSize="20.0sp" />
-
-</RelativeLayout>
+</AbsoluteLayout> 
