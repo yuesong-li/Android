@@ -8,7 +8,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+/*
+****************************************************************************************************************************************
+* Authors : Ding junkai, Gao Fang, Chen anxiao
 
+* Class   : LightOutInterface
+
+* Class functionality : Displays all the segments of LightOut's device, adds methods for updating device's image and goes back to main interface.
+*****************************************************************************************************************************************
+*/
 public class LightOutInterface extends Activity {
 	
 	private Button lightOutbackButton;
@@ -25,10 +33,9 @@ public class LightOutInterface extends Activity {
 		lightOutIV = (Button) findViewById(R.id.Switchlightout);
 		lightOutbackButton = (Button) this.findViewById(R.id.lightOutbackbutton);
 		LightOutcheck();
-		LIGHTOUT=true;
+		LIGHTOUT=true;                   // change the boolean value to mark if  it has been initialized
 	}
-
-	public static void LightOutcheck() {
+	public static void LightOutcheck() {                        // For initialization of LightOut'device and can be used to update device's image.
 		localStatus = Connection.initStates;
 		if(Connection.initStates.contains("lightOut:on"))
 		{
@@ -39,9 +46,7 @@ public class LightOutInterface extends Activity {
 			LightOutStatus=false;
 		}
 	}
-
-	public void lightOutbuttonClicked(View view) {		
-		
+	public void lightOutbuttonClicked(View view) {		// Method to response to user's action 
 		if(LightOutStatus==false)
 		{
 		con.setResult("lightOut:on");
@@ -54,7 +59,6 @@ public class LightOutInterface extends Activity {
 		} else {
 
 		}
-		
 		con.UpdateForDeviceImages();
 		}else if(LightOutStatus==true)
 		{
@@ -66,13 +70,10 @@ public class LightOutInterface extends Activity {
 			if (Connection.initStates.contains("lightOut:off")) {
 				lightOutIV.setBackgroundResource(R.drawable.outdoorlightoff);
 			} else {
-
 			}
 			con.UpdateForDeviceImages();
 		}
 	}
-
-
 	public void lightOutbuttonBackClicked(View view) {
 		Intent intent = new Intent();
 		intent.setClass(LightOutInterface.this, MainActivity.class);

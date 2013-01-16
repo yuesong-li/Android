@@ -6,7 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+/*
+****************************************************************************************************************************************
+* Authors : Ding junkai, Gao Fang, Chen anxiao
 
+* Class   : HeatingInterface
+
+* Class functionality : Displays all the segments of Heater's device, adds methods for updating device's image and goes back to main interface.
+*****************************************************************************************************************************************
+*/
 public class HeatingInterface extends Activity {
 	
 	private Button HeatingbackButton;
@@ -23,11 +31,9 @@ public class HeatingInterface extends Activity {
 		HeatingIV = (Button) findViewById(R.id.SwitchHeatingbutton);
 		HeatingbackButton = (Button) this.findViewById(R.id.Heatingbackbutton);
 		Heatingcheck();
-		HEATING=true;
-		
+		HEATING=true;                   // change the boolean value to mark if  it has been initialized
 	}
-	public static void Heatingcheck(){		
-		//String [] Heatingint=LoginInterface.initsmarthouse[3].split(":");
+	public static void Heatingcheck(){		// For initialization of Heater'device and can be used to update device's image.
 		localStatus = Connection.initStates;
 		if(Connection.initStates.contains("heaterRoom:on"))
 		{
@@ -38,9 +44,7 @@ public class HeatingInterface extends Activity {
 			HeatingStatus=false;
 		}
 	}
-	
-	public void HeatingbuttonClicked(View view){
-		
+	public void HeatingbuttonClicked(View view){	 // Method to response to user's action 
 		if(HeatingStatus==false)
 		{
 		con.setResult("heaterRoom:on");
@@ -52,16 +56,12 @@ public class HeatingInterface extends Activity {
 
 			HeatingIV.setBackgroundResource(R.drawable.indoorheateron);
 			HeatingStatus=true;
-
 		} else {
-
 		}
 		con.UpdateForDeviceImages();
-		
 		}else if(HeatingStatus==true)
 		{
 			con.setResult("heaterRoom:off");
-			//Connection.initStates = con.getResult();
 			String temp = Connection.initStates;
 			while (localStatus.equals(temp)) {
 				temp = Connection.initStates;
@@ -70,11 +70,8 @@ public class HeatingInterface extends Activity {
 
 				HeatingIV.setBackgroundResource(R.drawable.indoorheateroff);
 				HeatingStatus=false;
-
 			} else {
-
 			}
-			
 			con.UpdateForDeviceImages();
 		}
 	}

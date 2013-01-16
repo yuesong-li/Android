@@ -18,9 +18,16 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+/*
+****************************************************************************************************************************************
+* Authors : Ding junkai, Gao Fang, Chen anxiao
 
+* Class   : MainInterface
+
+* Class functionality : Displays all the segments of Main interface, adds methods to enter the specific device's interface,Built the comfortable layout.
+*****************************************************************************************************************************************
+*/
 public class MainActivity extends Activity {
-
 	private RadioButton lightButton = null;
 	private RadioButton coffeeButton = null;
 	private RadioButton MediaButton = null;
@@ -32,13 +39,10 @@ public class MainActivity extends Activity {
 	private RadioButton BathButton = null;
 	public Button loginButton = null;
 	public Button RefreshTempButton=null;
-
-
 	public static TextView RoomTemptv = null;
 	public static TextView LoftTemptv = null;
     public static TextView RoomTempValue=null;
     public static TextView LoftTempValue=null;
-    
 	public static String accessLevel = "";
 	public static boolean admission = false;
 	public static BufferedReader in = null;
@@ -46,9 +50,8 @@ public class MainActivity extends Activity {
 	AnimationDrawable animationDrawable;
 	Connection con = null;
 	public static boolean loginaccess=false;
-
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {      // initializes all the segments of main interface and set the specific functions for different views.
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		this.lightOutButton = (RadioButton) this
@@ -61,7 +64,6 @@ public class MainActivity extends Activity {
 		this.MediaButton = (RadioButton) this.findViewById(R.id.btn_2);
 		this.loginButton = (Button) this.findViewById(R.id.Main_logInButton);
 		this.DoorButton = (RadioButton) this.findViewById(R.id.Doormenu);
-		
 		this.BathButton = (RadioButton) this.findViewById(R.id.Bathmenu);
 		this.RoomTemptv = (TextView) this.findViewById(R.id.roomtemptv);
 		this.LoftTemptv = (TextView) this.findViewById(R.id.lofttemptv);
@@ -69,10 +71,10 @@ public class MainActivity extends Activity {
 		this.LoftTempValue=(TextView)this.findViewById(R.id.lofttemptttvv);
 		this.RefreshTempButton=(Button)this.findViewById(R.id.RefreshtempButton);
 		tempcheck();
-		if (admission == false) {
+		if (admission == false) {                       // if the user is not valid, the device's buttons can not be seen and unable to be used.
 			lightButton.setEnabled(false);
 			coffeeButton.setEnabled(false);
-			MediaButton.setEnabled(false);
+			MediaButton.setEnabled(false); 
 			FanButton.setEnabled(false);
 			lightOutButton.setEnabled(false);
 			LoftHeatingButton.setEnabled(false);
@@ -80,8 +82,6 @@ public class MainActivity extends Activity {
 			DoorButton.setEnabled(false);			
 			BathButton.setEnabled(false);
 			RefreshTempButton.setEnabled(false);
-			
-			
 			lightButton.setVisibility(-1);
 			coffeeButton.setVisibility(-1);
 			MediaButton.setVisibility(-1);
@@ -92,17 +92,13 @@ public class MainActivity extends Activity {
 			DoorButton.setVisibility(-1);			
 			BathButton.setVisibility(-1);
 			RefreshTempButton.setVisibility(-1);
-			
 		    this.RoomTemptv.setVisibility(-1);
 	        this.LoftTemptv.setVisibility(-1); 
 			this.RoomTempValue.setVisibility(-1);
 			this.LoftTempValue.setVisibility(-1);
-
 			loginButton.setText("Log In");
-
 		} else {
-
-			if (accessLevel.equals("high")) {
+			if (accessLevel.equals("high")) {                         // if the user is  valid, the device's buttons can  be seen and able to be used.
 				lightButton.setEnabled(true);
 				coffeeButton.setEnabled(true);
 				MediaButton.setEnabled(true);
@@ -113,7 +109,6 @@ public class MainActivity extends Activity {
 				DoorButton.setEnabled(true);
 				BathButton.setEnabled(true);
 				RefreshTempButton.setEnabled(true);
-				
 				lightButton.setVisibility(0);
 				coffeeButton.setVisibility(0);
 				MediaButton.setVisibility(0);
@@ -124,13 +119,10 @@ public class MainActivity extends Activity {
 				DoorButton.setVisibility(0);			
 				BathButton.setVisibility(0);
 				RefreshTempButton.setVisibility(0);
-				
 			    this.RoomTemptv.setVisibility(0);
 		        this.LoftTemptv.setVisibility(0); 
 				this.RoomTempValue.setVisibility(0);
 				this.LoftTempValue.setVisibility(0);
-
-
 				loginButton.setText("Log Out");
 			} else if (accessLevel.equals("low")) {
 				lightButton.setEnabled(true);
@@ -140,7 +132,6 @@ public class MainActivity extends Activity {
 				BathButton.setEnabled(true);
 				DoorButton.setEnabled(true);
 				RefreshTempButton.setEnabled(true);
-				
 				lightButton.setVisibility(0);
 				coffeeButton.setVisibility(0);
 				MediaButton.setVisibility(0);
@@ -151,22 +142,14 @@ public class MainActivity extends Activity {
 				DoorButton.setVisibility(0);			
 				BathButton.setVisibility(0);
 				RefreshTempButton.setVisibility(0);
-				
 			    this.RoomTemptv.setVisibility(0);
 		        this.LoftTemptv.setVisibility(0); 
 				this.RoomTempValue.setVisibility(0);
 				this.LoftTempValue.setVisibility(0);
-				
 				loginButton.setText("Log Out");
-
-				// disable these interfaces for low-level user
 				coffeeButton.setEnabled(false);
 				HeatingButton.setEnabled(false);
 				LoftHeatingButton.setEnabled(false);
-				
-				
-
-
 			} else {
 				admission = false;
 			}
@@ -185,17 +168,13 @@ public class MainActivity extends Activity {
 			toast.show();
 			loginaccess=true;
 			}
-
 		}
-		this.loginButton.setOnClickListener(new OnClickListener() {
-
+		this.loginButton.setOnClickListener(new OnClickListener() {                    // device's listener to do some specific action to fit the user command 
 			public void onClick(View v) {
-
 				if (loginButton.getText().toString().equals("Log In")) {
 					Intent intent = new Intent();
 					intent.setClass(MainActivity.this, LoginInterface.class);
 					MainActivity.this.startActivity(intent);
-
 				} else if (loginButton.getText().toString().equals("Log Out")) {
 					try {
 						  MyService ms=LoginInterface.arr.get(0);		
@@ -217,14 +196,10 @@ public class MainActivity extends Activity {
 					DoorButton.setEnabled(false);
 					BathButton.setEnabled(false);
 					RefreshTempButton.setEnabled(false);
-					
-					
 					loginButton.setText("Log In");
 				}
 			}
-
 		});
-
 		lightButton.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -243,7 +218,6 @@ public class MainActivity extends Activity {
 				return false;
 			}
 		});
-
 		lightOutButton.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -256,7 +230,6 @@ public class MainActivity extends Activity {
 					MainActivity.this.startActivity(intent);
 					return true;
 				} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-
 					return true;
 				}
 				return false;
@@ -274,13 +247,11 @@ public class MainActivity extends Activity {
 					MainActivity.this.startActivity(intent);
 					return true;
 				} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-
 					return true;
 				}
 				return false;
 			}
 		});
-
 		HeatingButton.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -293,7 +264,6 @@ public class MainActivity extends Activity {
 					MainActivity.this.startActivity(intent);
 					return true;
 				} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-
 					return true;
 				}
 				return false;
@@ -311,13 +281,11 @@ public class MainActivity extends Activity {
 					MainActivity.this.startActivity(intent);
 					return true;
 				} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-
 					return true;
 				}
 				return false;
 			}
 		});
-
 		BathButton.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -330,13 +298,11 @@ public class MainActivity extends Activity {
 					MainActivity.this.startActivity(intent);
 					return true;
 				} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-
 					return true;
 				}
 				return false;
 			}
 		});
-
 		DoorButton.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
 				if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -349,7 +315,6 @@ public class MainActivity extends Activity {
 					MainActivity.this.startActivity(intent);
 					return true;
 				} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-
 					return true;
 				}
 				return false;
@@ -357,11 +322,8 @@ public class MainActivity extends Activity {
 		});
 		this.coffeeButton.setOnTouchListener(new View.OnTouchListener() {
 			public boolean onTouch(View v, MotionEvent event) {
-
 				if (event.getAction() == MotionEvent.ACTION_DOWN) {
-
 					coffeeButton.setBackgroundResource(R.drawable.radiopress);
-
 					return true;
 				} else if (event.getAction() == MotionEvent.ACTION_UP) {
 					coffeeButton.setBackgroundResource(R.drawable.radio);
@@ -370,7 +332,6 @@ public class MainActivity extends Activity {
 					MainActivity.this.startActivity(intent);
 					return true;
 				} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
-
 					return true;
 				}
 				return false;
@@ -392,14 +353,10 @@ public class MainActivity extends Activity {
 
 					return true;
 				}
-
 				return false;
 			}
-
 		});
-		
-		this.RefreshTempButton.setOnClickListener(new OnClickListener(){
-
+		this.RefreshTempButton.setOnClickListener(new OnClickListener(){              // refresh button to increase the speed to get real device's value,it can be handled by user.
 			public void onClick(View v) {
 				 Connection con = Connection.getConnection();
 				 con.setResult("temp");
@@ -411,17 +368,10 @@ public class MainActivity extends Activity {
 				 String loftvalue[]=temploft.split(":");
 				 RoomTempValue.setText(Roomvalue[1]+"℃");
 				 LoftTempValue.setText(loftvalue[1]+"℃");
-				
-				
 			}
-			
-			
 		});
-
 	}
-
 	public static void tempcheck() {
-
 		 if(admission==true)
 		 {
 		 String status=Connection.initStates;

@@ -8,31 +8,34 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+/*
+****************************************************************************************************************************************
+* Authors : Ding junkai, Gao Fang, Chen anxiao
 
+* Class   : DoorInterface
+
+* Class functionality : Displays all the segments of Door's device, adds methods for updating device's image and goes back to main interface.
+*****************************************************************************************************************************************
+*/
 public class DoorInterface extends Activity {
-
 	private Button DoorbackButton;
 	static Button DoorIV;
 	private static String localStatus;
 	boolean LoopStatus = true;
-
 	Connection con = Connection.getConnection();
     static boolean DOOR =false;
-    static boolean DoorStatus=false;
-    
+    static boolean DoorStatus=false; 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.door);
 		DoorIV = (Button) findViewById(R.id.SwitchDoorButton);
 		DoorbackButton = (Button) this.findViewById(R.id.Doorbackbutton);
-		Doorcheck();
-		DOOR=true;
-
+		Doorcheck();                 
+		DOOR=true;                  // change the boolean value to mark if  it has been initialized
 	}
-
-	public static void Doorcheck() {
-		localStatus = Connection.initStates;
+	public static void Doorcheck() {          // For initialization of Door'device and can be used to update device's image.
+		localStatus = Connection.initStates;                    
 		if (Connection.initStates.contains("door:unlocked")) {
 			DoorIV.setBackgroundResource(R.drawable.dooropen);
 			DoorStatus=true;
@@ -40,11 +43,8 @@ public class DoorInterface extends Activity {
 			DoorIV.setBackgroundResource(R.drawable.doorclose);
 			DoorStatus=false;
 		}
-
 	}
-
-	public void DoorbuttonClicked(View view) {
-		
+	public void DoorbuttonClicked(View view) {	           // Method to response to user's action 
 		if(DoorStatus==false)
 		{
 		con.setResult("door:unlocked");
@@ -56,9 +56,7 @@ public class DoorInterface extends Activity {
 
 			DoorIV.setBackgroundResource(R.drawable.doorclose);
 			DoorStatus=true;
-
 		} else {
-
 		}
 		con.UpdateForDeviceImages();
 		}else if(DoorStatus==true)
@@ -72,9 +70,7 @@ public class DoorInterface extends Activity {
 
 				DoorIV.setBackgroundResource(R.drawable.doorclose);
 				DoorStatus=false;
-
 			} else {
-
 			}
 			con.UpdateForDeviceImages();
 		}

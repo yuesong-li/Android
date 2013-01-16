@@ -7,6 +7,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+/*
+*************************************************************************************************************************************
+* Authors : Ding junkai, Gao Fang, Chen anxiao
+
+* Class   : FanInterface
+
+* Class functionality : Displays all the segments of fan's device,adds methods for updating device's image and goes back to main interface.
+**************************************************************************************************************************************
+*/
+
 public class FanInterface extends Activity {
 	private Button FanbackButton;
 	static Button FanIV;	
@@ -22,11 +32,9 @@ public class FanInterface extends Activity {
 		FanIV = (Button) findViewById(R.id.SwitchFanbutton);
 		FanbackButton = (Button) this.findViewById(R.id.Fanbackbutton);
 		Fancheck();   
-		FAN=true;
-	   
+		FAN=true;                    // change the boolean value to mark if  it has been initialized
 	}
-	public static void Fancheck(){		
-		//String [] Heatingint=LoginInterface.initsmarthouse[3].split(":");
+	public static void Fancheck(){		  // For initialization of fan'device and can be used to update device's image.
 		localStatus = Connection.initStates;
 		if(Connection.initStates.contains("fan:on"))
 		{
@@ -37,9 +45,7 @@ public class FanInterface extends Activity {
 			FanStatus=false;
 		}
 	}
-	
-	public void FanbuttonClicked(View view){
-		
+	public void FanbuttonClicked(View view){	  // Method to response to user's action 
 		if(FanStatus==false)
 		{
 		con.setResult("fan:on");
@@ -51,29 +57,21 @@ public class FanInterface extends Activity {
 
 			FanIV.setBackgroundResource(R.drawable.newfanopen);
 			FanStatus=true;
-
 		} else {
-
 		}
 		con.UpdateForDeviceImages();
-		
 		}else if(FanStatus==true)
 		{
 			con.setResult("fan:off");
-			//Connection.initStates = con.getResult();
 			String temp = Connection.initStates;
 			while (localStatus.equals(temp)) {
 				temp = Connection.initStates;
 			}
 			if (Connection.initStates.contains("fan:off")) {
-
 				FanIV.setBackgroundResource(R.drawable.newfanclose);
 				FanStatus=false;
-
 			} else {
-
 			}
-			
 			con.UpdateForDeviceImages();
 		}
 	}

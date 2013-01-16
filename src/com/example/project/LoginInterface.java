@@ -13,41 +13,34 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+/*
+****************************************************************************************************************************************
+* Authors : Ding junkai, Gao Fang, Chen anxiao
 
+* Class   : LoginInterface
+
+* Class functionality : Displays all the segments of Login¡®s Interface, adds methods to check if the client is acceptable nor not,sets the privilege to valid user.
+*****************************************************************************************************************************************
+*/
 public class LoginInterface extends Activity {
-
-	// public static String initStauts = null;
-	// public static String[] initsmarthouse = new String[8];
 	private Button LoginButton = null;
 	private Button BackButton = null;
-
 	private EditText UserNameField = null;
 	private EditText PassWordField = null;
-
 	public String UserName = "";
 	public String PassWord = "";
-
 	public static ArrayList<MyService> arr =null;
-	
-	// Connection con = Connection.getConnection();
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
-
 		this.LoginButton = (Button) this.findViewById(R.id.Login_button);
-	
-
 		this.UserNameField = (EditText) this
 				.findViewById(R.id.Login_UserNameet);
 		this.PassWordField = (EditText) this
 				.findViewById(R.id.Login_PassWordet);
-
 		this.LoginButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-			
-				
 				if (!UserNameField.getText().toString().equals("")
 						&& !PassWordField.getText().toString().equals("")) {
 					Connection conn = Connection.getConnection();
@@ -64,7 +57,7 @@ public class LoginInterface extends Activity {
 						intent.setClass(LoginInterface.this, MainActivity.class);
 						LoginInterface.this.startActivity(intent);
 					} else {
-						if (splits[1].equals("high")) {
+						if (splits[1].equals("high")) {      // distributes the high or low privilege to valid user
 							MainActivity.accessLevel = "high";
 						} else if (splits.equals("low")) {
 							MainActivity.accessLevel = "low";
@@ -73,22 +66,16 @@ public class LoginInterface extends Activity {
 						}
 						MainActivity.admission = true;
 						Connection.initStates = conn.getResult();
-						Log.i("TAG", "States : " + Connection.initStates);
-						
+						Log.i("TAG", "States : " + Connection.initStates);	
 						Intent intent = new Intent();
 						intent.setClass(LoginInterface.this, MainActivity.class);
-						LoginInterface.this.startActivity(intent);
-						
-						MyService myservice = new MyService();
+						LoginInterface.this.startActivity(intent);	
+						MyService myservice = new MyService(); // start the underlying thread.
 						myservice.execute();			
 						arr=new ArrayList<MyService>();
-						arr.add(myservice);
-					
-						
+						arr.add(myservice);	
 					}
 				} else {
-					// Toast toast = Toast.makeText(getApplicationContext(),
-					// "Error!Please try again..", Toast.LENGTH_LONG);
 					Toast toast = Toast.makeText(getApplicationContext(),
 							"Please re-enter your username or password",
 							Toast.LENGTH_LONG);
@@ -105,8 +92,5 @@ public class LoginInterface extends Activity {
 				}
 			}
 		});
-
-	
 	}
-
 }

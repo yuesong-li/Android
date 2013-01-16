@@ -7,25 +7,27 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
 import android.util.Log;
+/*
+**************************************************************************************************************************************************************************
+* Authors : Ding junkai, Gao Fang, Chen anxiao
 
+* Class   : Connection
+
+* Class functionality : adds methods to establish the connection and update all device's statuses,implements methods for sending message to server and responses to server. 
+***************************************************************************************************************************************************************************
+*/
 public class Connection {
 	public String msg = null;
 	public static String initStates;
 	static Socket socket = null;
 	static BufferedReader in = null;
 	static PrintWriter out = null;
-	static String serverAddr = "169.254.220.37";// "169.254.220.37";
-	static int port = 8888;
-	private static Connection connection = null;// new Connection();
+	static String serverAddr = "169.254.220.37";//   Server part's IP Address.
+	static int port = 8888;                    // Server part's port number.
+	private static Connection connection = null;
 	private final String TAG = "CONNECTION";
-
-	// public Connection() {
-	// getSocket();
-	// }
-
-	public static Connection getConnection() {
+	public static Connection getConnection() { // establish the connection, if the connection exists,the connection will be synchronized  
 		if (connection == null) {
 			synchronized (Connection.class) 
 			{
@@ -47,7 +49,6 @@ public class Connection {
 		}
 		return connection;
 	}
-
 	public void setResult(String str) {
 		try {
 			if (str != null) {
@@ -57,7 +58,6 @@ public class Connection {
 			e.printStackTrace();
 		}
 	}
-
 	public String getResult() {
 		try {
 			getInputContent();
@@ -66,7 +66,6 @@ public class Connection {
 		}
 		return msg;
 	}
-
 	private void getInputContent() throws IOException {
 		if (connection == null) {
 			getConnection();
@@ -75,7 +74,6 @@ public class Connection {
 			msg = in.readLine();
 		}
 	}
-
 	private void getOutputContent(String str) throws IOException {
 		if (connection == null) {
 			getConnection();
@@ -86,7 +84,6 @@ public class Connection {
 			out.flush();
 		}
 	}
-
 	public String ListenForUpdate() {
 		String msgFromServer = "";
 		if (connection == null) {
@@ -100,25 +97,16 @@ public class Connection {
 				Log.i(TAG, ioe.getMessage());
 			}
 		} else {
-
 		}
 		return msgFromServer;
 	}
 
 	public static void closeSocket() throws Exception {
-		
-		
-        //  notifyAll();
         in.close();
         out.close();
         socket.close();
         socket=null;
-		Log.i("ZXCBNNM", "??????");
-		Log.i("ZXCBNNM", "!");
         connection=null;
-        Log.i("ZXCBNNM", "&&&&&");
-//        socket=null;
-		
 	}
 
 	public void UpdateForDeviceImages() {
@@ -152,11 +140,6 @@ public class Connection {
 		if (MediaInterface.MEDIA == true) {
 			MediaInterface.meidaIncheck();
 		}
-		// if((MainActivity.TEMPLOFT=true)&&(MainActivity.TEMPROOM=true))
-		// {
 		MainActivity.tempcheck();
-		// }
-
 	}
-
 }

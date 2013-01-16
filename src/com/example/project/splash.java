@@ -19,48 +19,44 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+/*
+****************************************************************************************************************************************
+* Authors : Ding junkai, Gao Fang, Chen anxiao
 
+* Class   : splash
+
+* Class functionality : implements the method to show a animation before the main interface appears,makes application performance more professional and comfortable.
+*****************************************************************************************************************************************
+*/
 public class splash extends Activity {
-
 	private ProgressBar rectangleProgressBar;
 	protected static final int STOP = 0x10000;
 	protected static final int NEXT = 0x10001;
 	private int iCount = 0;
-	//anim
 	ImageView imageView; 
 	int image_alpha = 255; 
 	boolean isrung = false; 
-	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.start);
-		
 		isrung = true; 
 		imageView = (ImageView) this.findViewById(R.id.imageView1); 
 		imageView.setImageResource(R.drawable.house); 
 		imageView.setAlpha(image_alpha); 
-		//Handler x = new Handler();
-		//x.postDelayed(new splashhandler(), 20000);
 		mHandler.postDelayed(new splashhandler(), 5000);
-	
 		rectangleProgressBar = (ProgressBar)findViewById(R.id.rectangleProgressBar);  
 		rectangleProgressBar.setIndeterminate(false);  
 		rectangleProgressBar.setVisibility(View.VISIBLE);  
 		rectangleProgressBar.setMax(100);  
         rectangleProgressBar.setProgress(0); 
-
            Thread mThread = new Thread(new Runnable() {
         	public void run() { 
-                  //aim        		
         		while (isrung) { 
-
-        		
         		for(int i=0 ; i < 5; i++){  
                       try{  
                           iCount = (i + 1) * 20;  
                           Thread.sleep(1000);
                           updateAlpha(); 
-                          
                           if(i == 4){  
                               Message msg = new Message();  
                               msg.what = STOP;  
@@ -75,18 +71,11 @@ public class splash extends Activity {
                           e.printStackTrace();  
                       }  
                   }  
-        		}//end while
-                    
+        		}   
               }  
           });  
           mThread.start(); 	
-        		
-        		
-        		
-		
-		
-	}//end create
-	
+	}	
 	protected void updateAlpha() {
 		if (image_alpha - 50 >= 0) { 
 			image_alpha -= 50; 
@@ -114,17 +103,11 @@ public class splash extends Activity {
             }  
         }  
     };  
-
 	class splashhandler implements Runnable {
-
 		public void run() {            			
 			startActivity(new Intent(getApplication(), MainActivity.class));
 			splash.this.finish();
 		}
-
 	}
-	
-	
-	
-	
+
 }
